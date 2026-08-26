@@ -15,6 +15,7 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 
 ## **UNRELEASED**
 * BUG: Recursive archive analysis hashes result-producing and denied entries from their extracted content and preserves archive-entry URIs in SARIF output.
+* BUG: `emit-finalize --no-cwe-enrichment` now resolves `name` from the embedded MITRE taxonomy unconditionally, so a CWE-as-rule-id descriptor stays spec-valid and GHAzDO-publishable even with the flag set; the TypeScript port gained the equivalent floor.
 
 ## **v5.6.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.6.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.6.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.6.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.6.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.6.0)
 * BUG: `ArtifactLocation.TryReconstructAbsoluteUri` returns false (leaving `resolvedUri` null) when a relative `uri`'s `../` segments escape the `originalUriBaseIds` base it resolves through, so enrichment no longer reads files outside a declared base.

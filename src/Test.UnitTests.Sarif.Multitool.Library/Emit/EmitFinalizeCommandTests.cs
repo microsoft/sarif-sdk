@@ -235,7 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void Run_WithNoCweEnrichment_SkipsTaxonomyEnrichmentButStillFloorsName()
+        public void Run_WithNoCweEnrichment_SkipsTaxonomyProseButStillNamesWeakness()
         {
             SeedWip(
                 (SarifEventKinds.RunHeader, RunHeader()),
@@ -251,12 +251,214 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SarifLog log = LoadSarif();
             ReportingDescriptor descriptor = log.Runs[0].Tool.Driver.Rules[0];
             descriptor.Id.Should().Be("CWE-79");
-            // --no-cwe-enrichment suppresses taxonomy enrichment (the MITRE title, helpUri, descriptions)...
+            // --no-cwe-enrichment suppresses the MITRE prose (public data AdvSec already holds)...
             descriptor.HelpUri.Should().BeNull();
             descriptor.ShortDescription.Should().BeNull();
-            // ...but CWE-79 is a genuine Weakness, so the abstraction-aware name floor still names it
-            // to its honest id — the descriptor is never emitted nameless and GHAzDO-broken.
-            descriptor.Name.Should().Be("CWE-79");
+            descriptor.FullDescription.Should().BeNull();
+            descriptor.Help.Should().BeNull();
+            // ...but CWE-79 is a genuine Weakness, so name — cheap, and required for a spec-valid,
+            // GHAzDO-publishable descriptor — is still resolved from the taxonomy unconditionally.
+            descriptor.Name.Should().Be("CrossSiteScripting");
+        }
+
+        [Fact]
+        public void Run_WithNoCweEnrichment_LeavesProducerSuppliedNovelDescriptorFullyIntact()
+        {
+            // --no-cwe-enrichment must be scoped to CWE-as-rule-id descriptors only. A NOVEL- id is
+            // never touched by CweTaxonomyEnricher (nothing public describes it, so it's not in the
+            // embedded taxonomy) and EnsureCweRuleDescriptorNames skips it too (IsKnownWeakness is
+            // false for a NOVEL- id). Assert every producer-authored field -- not just Name -- survives
+            // byte-for-byte with the flag set, proving a non-CWE tool's output is completely unaffected.
+            const string novelId = "NOVEL-prompt-injection-via-system-message";
+            var novelDescriptor = new ReportingDescriptor
+            {
+                Id = novelId,
+                Name = "PromptInjectionViaSystemMessage",
+                HelpUri = new Uri("https://example.com/rules/novel-prompt-injection", UriKind.Absolute),
+                ShortDescription = new MultiformatMessageString { Text = "Untrusted content reaches a system-role prompt at runtime." },
+                FullDescription = new MultiformatMessageString { Text = "Untrusted content reaches a system-role prompt at runtime; full prose." },
+                Help = new MultiformatMessageString { Text = "Help text.", Markdown = "## Help" },
+            };
+
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.RuleDescriptor, novelDescriptor),
+                (SarifEventKinds.Result, new Result { RuleId = novelId, Message = new Message { Text = "prompt injection" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                NoCweEnrichment = true,
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            ReportingDescriptor descriptor = LoadSarif().Runs[0].Tool.Driver.Rules.Single(r => r.Id == novelId);
+            descriptor.Name.Should().Be("PromptInjectionViaSystemMessage");
+            descriptor.HelpUri.Should().Be(novelDescriptor.HelpUri);
+            descriptor.ShortDescription.Text.Should().Be(novelDescriptor.ShortDescription.Text);
+            descriptor.FullDescription.Text.Should().Be(novelDescriptor.FullDescription.Text);
+            descriptor.Help.Text.Should().Be(novelDescriptor.Help.Text);
+            descriptor.Help.Markdown.Should().Be(novelDescriptor.Help.Markdown);
+        }
+
+        [Fact]
+        public void Run_WithNoCweEnrichment_ValidatorConfirmsWeaknessPassesGHAzDO2012ButCategoryFails()
+        {
+            // The point of the fix is validator-observable: a Weakness (CWE-79) must actually pass
+            // GHAzDO2012 (name required) once finalize runs, while a Category (CWE-16) must actually
+            // still fail it. Asserting the Name property directly checks our own arithmetic; running
+            // the real validator over the finalized output checks the thing GHAzDO ingestion checks.
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } }),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-16/insecure-default-config", Message = new Message { Text = "config" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                NoCweEnrichment = true,
+            });
+            exit.Should().Be(CommandBase.SUCCESS);
+
+            IList<ReportingDescriptor> finalizedRules = LoadSarif().Runs[0].Tool.Driver.Rules;
+            int xssRuleIndex = finalizedRules.ToList().FindIndex(r => r.Id == "CWE-79");
+            int categoryRuleIndex = finalizedRules.ToList().FindIndex(r => r.Id == "CWE-16");
+
+            SarifLog validationReport = RunGHAzDOValidator(OutPath);
+            List<Result> ghazdo2012Results = validationReport.Runs[0].Results
+                .Where(r => r.RuleId == "GHAzDO2012")
+                .ToList();
+
+            ghazdo2012Results.Should().Contain(
+                r => TargetsRuleAtIndex(r, categoryRuleIndex),
+                "the nameless Category descriptor must still fail GHAzDO2012");
+            ghazdo2012Results.Should().NotContain(
+                r => TargetsRuleAtIndex(r, xssRuleIndex),
+                "the named Weakness descriptor must pass GHAzDO2012 now that name is resolved");
+        }
+
+        private static SarifLog RunGHAzDOValidator(string targetPath)
+        {
+            string reportPath = targetPath + ".ghazdo-validate-report.sarif";
+            try
+            {
+                var options = new ValidateOptions
+                {
+                    TargetFileSpecifiers = new[] { targetPath },
+                    OutputFilePath = reportPath,
+                    OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
+                    RuleKindOption = new List<RuleKind> { RuleKind.GHAzDO },
+                    Kind = new List<ResultKind> { ResultKind.Fail },
+                    Level = new List<FailureLevel> { FailureLevel.Note, FailureLevel.Warning, FailureLevel.Error },
+                };
+
+                var context = new SarifValidationContext { FileSystem = FileSystem.Instance };
+                new ValidateCommand().Run(options, ref context);
+
+                return SarifLog.Load(reportPath);
+            }
+            finally
+            {
+                if (File.Exists(reportPath)) { File.Delete(reportPath); }
+            }
+        }
+
+        [Fact]
+        public void Run_WithNoCweEnrichment_RealValidateFlagConfirmsWeaknessClearsSarif1001IdentityCollision()
+        {
+            // SARIF1001 (id/name collision forbidden, spec 3.49.7) is the other rule the design doc
+            // calls out alongside GHAzDO2012. Unlike GHAzDO2012, emit-finalize's own --validate flag
+            // already runs Sarif+AI rule kinds in production (RunValidatorAndReport), so this test
+            // drives that real flag/report instead of a hand-rolled validator invocation -- it proves
+            // the shipped --validate path itself, not just a re-implementation of it.
+            //
+            // Note: --validate's default FailureLevels filter is Error+Warning (BaseLogger.ErrorWarning),
+            // so Note-level Sarif rules are not emitted on this path.
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } }),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-16/insecure-default-config", Message = new Message { Text = "config" } }));
+
+            string reportPath = Path.Combine(
+                Path.GetDirectoryName(OutPath) ?? string.Empty,
+                Path.GetFileNameWithoutExtension(OutPath) + ".validate-report.sarif");
+
+            try
+            {
+                // Note: the exit code here reflects the run's overall AI1005/AI1006/AI1016 "no
+                // security-severity" findings baked into this minimal fixture -- unrelated to the
+                // name-resolution fix -- so it isn't asserted; the report contents are what matter.
+                new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+                {
+                    OutputFilePath = OutPath,
+                    NoCweEnrichment = true,
+                    Validate = true,
+                });
+
+                IList<ReportingDescriptor> finalizedRules = LoadSarif().Runs[0].Tool.Driver.Rules;
+                int xssRuleIndex = finalizedRules.ToList().FindIndex(r => r.Id == "CWE-79");
+
+                File.Exists(reportPath).Should().BeTrue("--validate must persist a validate-report.sarif");
+                SarifLog validationReport = SarifLog.Load(reportPath);
+                IList<Result> results = validationReport.Runs[0].Results ?? new List<Result>();
+
+                results.Where(r => r.RuleId == "SARIF1001")
+                    .Should().NotContain(r => TargetsRuleAtIndex(r, xssRuleIndex),
+                        "CWE-79's resolved name ('CrossSiteScripting') differs from its id ('CWE-79'), so SARIF1001 does not fire");
+            }
+            finally
+            {
+                if (File.Exists(reportPath)) { File.Delete(reportPath); }
+            }
+        }
+
+        // The validator's GHAzDO2012 result carries no ruleId/ruleIndex of its own (it's a
+        // reportingDescriptor-level finding on the *target* log, not a result-level one). Its
+        // message is built from a format string plus positional Arguments, the first of which is
+        // the JSON-pointer-derived path to the offending descriptor, e.g.
+        // "runs[0].tool.driver.rules[<index>]" — match on that argument, which is populated even
+        // when Message.Text itself is left for lazy resource-string formatting.
+        private static bool TargetsRuleAtIndex(Result result, int ruleIndex)
+            => result.Message?.Arguments?.Any(a => a == $"runs[0].tool.driver.rules[{ruleIndex}]") == true;
+
+        [Fact]
+        public void Run_WithNoCweEnrichment_HandlesWeaknessCategoryAndNovelRulesTogether()
+        {
+            // End-to-end coverage of the three rule shapes emit-finalize --no-cwe-enrichment must
+            // treat differently in a single run: a Weakness (named from the taxonomy), a Category
+            // (left nameless on purpose so it fails loudly), and a NOVEL- id (producer-owned, untouched).
+            SeedWip(
+                (SarifEventKinds.RunHeader, RunHeader()),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-79/template-xss", Message = new Message { Text = "xss" } }),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-89/string-concat-query", Message = new Message { Text = "sqli" } }),
+                (SarifEventKinds.Result, new Result { RuleId = "CWE-16/insecure-default-config", Message = new Message { Text = "config" } }),
+                (SarifEventKinds.Result, new Result { RuleId = "NOVEL-prompt-injection", Message = new Message { Text = "prompt" } }));
+
+            int exit = new EmitFinalizeCommand().Run(new EmitFinalizeOptions
+            {
+                OutputFilePath = OutPath,
+                NoCweEnrichment = true,
+            });
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            IList<ReportingDescriptor> rules = LoadSarif().Runs[0].Tool.Driver.Rules;
+
+            ReportingDescriptor xss = rules.Single(r => r.Id == "CWE-79");
+            xss.Name.Should().Be("CrossSiteScripting");
+            xss.HelpUri.Should().BeNull();
+            xss.ShortDescription.Should().BeNull();
+
+            ReportingDescriptor sqli = rules.Single(r => r.Id == "CWE-89");
+            sqli.Name.Should().Be("SqlInjection");
+            sqli.HelpUri.Should().BeNull();
+
+            ReportingDescriptor category = rules.Single(r => r.Id == "CWE-16");
+            category.Name.Should().BeNull();
+            category.HelpUri.Should().BeNull();
+
+            ReportingDescriptor novel = rules.Single(r => r.Id == "NOVEL-prompt-injection");
+            novel.Name.Should().BeNull();
+            novel.HelpUri.Should().BeNull();
         }
 
         [Fact]
@@ -811,43 +1013,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
-        public void EnsureCweRuleDescriptorNames_FloorsUnbundledWeaknessNameToId()
+        public void EnsureCweRuleDescriptorNames_ResolvesNameFromTaxonomy()
         {
             // CWE-89 is a genuine Weakness; under --no-cwe-enrichment the replayer-created descriptor
-            // reaches finalize nameless, so the floor names it to its honest id (the SDK has no title
-            // to offer under that flag) and the descriptor stays GHAzDO-publishable.
+            // reaches finalize nameless, so this resolves its real MITRE title from the embedded
+            // taxonomy — cheap (~20 bytes) and spec-valid — rather than flooring to the bare id.
             Run run = BuildRun("CWE-89");
 
-            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+            int modified = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
 
-            floored.Should().Be(1);
-            run.Tool.Driver.Rules[0].Name.Should().Be("CWE-89");
+            modified.Should().Be(1);
+            run.Tool.Driver.Rules[0].Name.Should().Be("SqlInjection");
         }
 
         [Fact]
         public void EnsureCweRuleDescriptorNames_LeavesCategoryDescriptorNameless()
         {
             // CWE-16 is a MITRE Category, not a Weakness, so mapping a result to it is a producer
-            // bug. The floor deliberately leaves it nameless so it fails loudly (AI1016 at validate,
+            // bug. This deliberately leaves it nameless so it fails loudly (AI1016 at validate,
             // GHAzDO2012 at ingestion) instead of being normalized into a publishable-looking descriptor.
             Run run = BuildRun("CWE-16");
 
-            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+            int modified = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
 
-            floored.Should().Be(0);
+            modified.Should().Be(0);
             run.Tool.Driver.Rules[0].Name.Should().BeNull();
         }
 
         [Fact]
-        public void EnsureCweRuleDescriptorNames_FloorsEachUnnamedWeaknessIndependently()
+        public void EnsureCweRuleDescriptorNames_ResolvesEachUnnamedWeaknessIndependently()
         {
             Run run = BuildRun("CWE-79", "CWE-89");
 
-            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+            int modified = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
 
-            floored.Should().Be(2);
-            run.Tool.Driver.Rules[0].Name.Should().Be("CWE-79");
-            run.Tool.Driver.Rules[1].Name.Should().Be("CWE-89");
+            modified.Should().Be(2);
+            run.Tool.Driver.Rules[0].Name.Should().Be("CrossSiteScripting");
+            run.Tool.Driver.Rules[1].Name.Should().Be("SqlInjection");
         }
 
         [Fact]
@@ -856,22 +1058,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Run run = BuildRun("CWE-79");
             run.Tool.Driver.Rules[0].Name = "Cross-site Scripting";
 
-            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+            int modified = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
 
-            floored.Should().Be(0);
+            modified.Should().Be(0);
             run.Tool.Driver.Rules[0].Name.Should().Be("Cross-site Scripting");
         }
 
         [Fact]
         public void EnsureCweRuleDescriptorNames_LeavesNovelAndNonCweDescriptorsAlone()
         {
-            // The floor is the GHAzDO publishability guarantee for the CWE Weakness descriptors the SDK
-            // injects and enriches; a NOVEL- id and an arbitrary rule id are producer-owned and out of scope.
+            // This is the GHAzDO publishability guarantee for the CWE Weakness descriptors the SDK
+            // injects; a NOVEL- id and an arbitrary rule id are producer-owned and out of scope.
             Run run = BuildRun("NOVEL-prompt-injection", "MY-CUSTOM-RULE");
 
-            int floored = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
+            int modified = EmitFinalizeCommand.EnsureCweRuleDescriptorNames(run);
 
-            floored.Should().Be(0);
+            modified.Should().Be(0);
             run.Tool.Driver.Rules[0].Name.Should().BeNull();
             run.Tool.Driver.Rules[1].Name.Should().BeNull();
         }

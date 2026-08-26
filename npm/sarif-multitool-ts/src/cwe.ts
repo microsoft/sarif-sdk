@@ -96,6 +96,51 @@ function loadTaxa(): Map<string, ReportingDescriptor> {
   return m;
 }
 
+// Unfiltered (every status, including Deprecated) view of the embedded taxonomy, keyed by CWE
+// number. Ported from CweTaxonomy.WeaknessNumbers / CweTaxonomy.NameByWeaknessNumber: membership
+// and name resolution for isKnownWeakness/tryGetName are evaluated across every maturity status —
+// a deprecated Weakness is still a Weakness with a name.
+let allTaxaByCweNumber: Map<number, ReportingDescriptor> | undefined;
+
+function loadAllTaxaByCweNumber(): Map<number, ReportingDescriptor> {
+  if (allTaxaByCweNumber) return allTaxaByCweNumber;
+  const log = JSON.parse(readFileSync(assetPath('assets', 'CweTaxonomy.sarif'), 'utf8')) as {
+    runs?: Array<{ taxonomies?: Array<{ taxa?: ReportingDescriptor[] }> }>;
+  };
+  const m = new Map<number, ReportingDescriptor>();
+  for (const run of log.runs ?? []) {
+    for (const taxonomy of run.taxonomies ?? []) {
+      for (const t of taxonomy.taxa ?? []) {
+        const num = tryGetCweNumber(t?.id);
+        if (num !== undefined) m.set(num, t);
+      }
+    }
+  }
+  allTaxaByCweNumber = m;
+  return m;
+}
+
+/**
+ * Determines whether a CWE identifier names a known MITRE Weakness — the only abstraction that
+ * is a valid `result.ruleId` mapping target. Returns `false` for a Category, a View, a withdrawn
+ * id, a typo, or any non-CWE token. Ported from `CweTaxonomy.IsKnownWeakness`.
+ */
+export function isKnownWeakness(cweId: string | undefined): boolean {
+  const num = tryGetCweNumber(cweId);
+  return num !== undefined && loadAllTaxaByCweNumber().has(num);
+}
+
+/**
+ * Resolves the canonical MITRE `name` for a CWE identifier that names a known Weakness, across
+ * every maturity status. Ported from `CweTaxonomy.TryGetName`.
+ */
+export function tryGetName(cweId: string | undefined): string | undefined {
+  const num = tryGetCweNumber(cweId);
+  if (num === undefined) return undefined;
+  const name = loadAllTaxaByCweNumber().get(num)?.name;
+  return name || undefined;
+}
+
 function isEmptyMsg(m: MultiformatMessageString | undefined): boolean {
   return !m || (!m.text && !m.markdown);
 }
@@ -174,6 +219,31 @@ function tryEnrichDescriptor(
   }
 
   return changed;
+}
+
+/**
+ * Guarantees every descriptor for a CWE Weakness used as a rule id carries a non-empty `name` —
+ * the property GHAzDO ingestion requires (GHAzDO2012, SARIF1001, SARIF2012) — even when full
+ * taxonomy enrichment is suppressed (`noCweEnrichment`). `name` is resolved from the embedded
+ * taxonomy; the canonical CWE id is used as a last-resort floor only if that lookup finds
+ * nothing. A CWE that is not a known Weakness (a Category, View, withdrawn id, or typo) is left
+ * nameless on purpose so it fails loudly at validation instead of being normalized into a
+ * publishable-looking descriptor. Ported from `EmitFinalizeCommand.EnsureCweRuleDescriptorNames`.
+ */
+export function ensureCweRuleDescriptorNames(run: Run): number {
+  const rules = run.tool?.driver?.rules;
+  if (!rules || rules.length === 0) return 0;
+
+  let modified = 0;
+  for (const rule of rules) {
+    if (!rule?.id) continue;
+    if (rule.name) continue;
+    if (!isKnownWeakness(rule.id)) continue;
+
+    rule.name = tryGetName(rule.id) ?? rule.id;
+    modified++;
+  }
+  return modified;
 }
 
 /** EmitFinalizeCommand.ApplyAISecuritySeverity port. */

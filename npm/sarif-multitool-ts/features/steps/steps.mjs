@@ -412,6 +412,11 @@ When('emit-finalize is invoked with no-repo expecting failure', async function (
   }
 });
 
+When('emit-finalize is invoked with no-cwe-enrichment', async function () {
+  const r = await emitFinalize({ output: this.output, keepWip: true, noCweEnrichment: true });
+  this.finalizedLog = r.log;
+});
+
 // ---------------------------------------------------------------------------
 // Then — event log
 // ---------------------------------------------------------------------------
@@ -630,3 +635,8 @@ Then(
     assert.ok(rule?.helpUri?.startsWith(prefix));
   },
 );
+
+Then('the finalized SARIF rule {string} has no {string}', function (id, field) {
+  const rule = finalizedRun(this).tool.driver.rules.find((r) => r.id === id);
+  assert.ok(rule && !rule[field], `rule ${id}.${field} is unexpectedly present`);
+});

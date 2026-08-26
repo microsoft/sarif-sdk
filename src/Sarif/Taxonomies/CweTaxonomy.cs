@@ -79,6 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
         private static SarifLog canonicalLog;
         private static string canonicalBrief;
         private static HashSet<int> weaknessNumbers;
+        private static Dictionary<int, string> nameByWeaknessNumber;
 
         // First-sentence terminator: the first sentence-ending punctuation, any
         // trailing closing quote/paren/bracket, then whitespace or end of string.
@@ -180,6 +181,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
                 && WeaknessNumbers().Contains(cweNumber);
         }
 
+        /// <summary>
+        /// Resolves the canonical MITRE <c>name</c> for a CWE identifier that names a known
+        /// Weakness (<see cref="IsKnownWeakness"/>), across every maturity status — a
+        /// deprecated Weakness still has a name, and the caller (not this lookup) decides
+        /// whether it should be used.
+        /// </summary>
+        /// <param name="cweId">
+        /// A CWE identifier in any form <see cref="IsKnownWeakness"/> accepts: a canonical id
+        /// (<c>CWE-89</c>, any case, leading zeros tolerated) or an AI ruleId carrying a sub-id
+        /// (<c>CWE-89/kql-injection</c>).
+        /// </param>
+        /// <param name="name">The taxon's <c>name</c>, or <c>null</c> when not found.</param>
+        /// <returns><c>true</c> when <paramref name="cweId"/> resolves to a known Weakness with a non-empty name.</returns>
+        public static bool TryGetName(string cweId, out string name)
+        {
+            name = null;
+            return CweSecuritySeverity.TryGetCweNumber(cweId, out int cweNumber)
+                && NameByWeaknessNumber().TryGetValue(cweNumber, out name);
+        }
+
         internal static SarifLog LoadCanonical()
         {
             lock (Gate)
@@ -212,6 +233,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Taxonomies
                     weaknessNumbers = set;
                 }
                 return weaknessNumbers;
+            }
+        }
+
+        private static Dictionary<int, string> NameByWeaknessNumber()
+        {
+            lock (Gate)
+            {
+                if (nameByWeaknessNumber == null)
+                {
+                    var map = new Dictionary<int, string>();
+                    foreach (ReportingDescriptor taxon in LoadCanonical().Runs[0].Taxonomies[0].Taxa)
+                    {
+                        if (CweSecuritySeverity.TryGetCweNumber(taxon.Id, out int cweNumber)
+                            && !string.IsNullOrEmpty(taxon.Name))
+                        {
+                            map[cweNumber] = taxon.Name;
+                        }
+                    }
+                    nameByWeaknessNumber = map;
+                }
+                return nameByWeaknessNumber;
             }
         }
 
