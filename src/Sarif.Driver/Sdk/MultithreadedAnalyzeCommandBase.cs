@@ -517,15 +517,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 string separator = globalContext.PostUri.Contains("?") ? "&" : "?";
                 string uri = $"{globalContext.PostUri}{separator}healthcheck=true";
 
-                var content = new StringContent(string.Empty);
-                HttpResponseMessage httpResponseMessage = await httpClient.PostAsync(uri, content).ConfigureAwait(false);
+                using var content = new StringContent(string.Empty);
+                using HttpResponseMessage response = await httpClient.PostAsync(uri, content).ConfigureAwait(false);
 
                 // For health check with query parameter, we expect a 202 (Accepted) response.
                 // We also maintain backwards compatibility with 422 (unprocessable payload) for servers
                 // that don't support the healthcheck parameter but will accept valid SARIF files.
-                if (httpResponseMessage.StatusCode != HttpStatusCode.Accepted &&
-                    httpResponseMessage.StatusCode != (HttpStatusCode)422)
+                if (response.StatusCode != HttpStatusCode.Accepted &&
+                    response.StatusCode != (HttpStatusCode)422)
                 {
+                    string responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    Console.Error.WriteLine(
+                        $"Post URI health check for '{globalContext.PostUri}' returned status code " +
+                        $"'{response.StatusCode}' and message: '{responseText}'.");
                     Errors.LogErrorPostingLogFile(globalContext, globalContext.PostUri);
                     globalContext.PostUri = null;
                     succeeded = false;
@@ -533,15 +537,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             catch (Exception e)
             {
+                Console.Error.WriteLine(
+                    $"Post URI health check for '{globalContext.PostUri}' failed: {e}.");
                 Errors.LogErrorPostingLogFile(globalContext, globalContext.PostUri);
                 globalContext.PostUri = null;
                 succeeded = false;
                 globalContext.RuntimeExceptions ??= new List<Exception>();
                 globalContext.RuntimeExceptions.Add(e);
-            }
-            finally
-            {
-                // TBD add logging if POST URI is null.
             }
 
             return succeeded;

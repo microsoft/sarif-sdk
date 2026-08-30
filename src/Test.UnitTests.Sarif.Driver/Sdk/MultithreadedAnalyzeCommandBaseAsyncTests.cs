@@ -210,19 +210,90 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public async Task Run_FailsWhenPostUriHealthCheckIsRejected()
+        {
+            await VerifyAnalysisFailsAfterRejectedHealthCheckAsync(runAsynchronously: false);
+        }
+
+        [Fact]
         public async Task RunAsync_FailsWhenPostUriHealthCheckIsRejected()
         {
-            Mock<HttpClientWrapper> httpClient = CreateHttpClient(HttpStatusCode.NotFound, HttpStatusCode.OK);
+            await VerifyAnalysisFailsAfterRejectedHealthCheckAsync(runAsynchronously: true);
+        }
 
-            TestAnalyzeOptions options = CreateOptions();
-            options.PostUri = "https://example.com";
+        [Fact]
+        public async Task RunAsync_FailsWhenPostUriHealthCheckThrows()
+        {
+            string outputFilePath = Path.GetTempFileName();
+            var httpClient = new Mock<HttpClientWrapper>();
+            var expectedException = new HttpRequestException("Health check failed.");
 
-            (int exitCode, TestAnalysisContext context) =
-                await CreateCommand(httpClient.Object).RunAsync(options, globalContext: null);
+            httpClient.Setup(client => client.PostAsync(It.IsAny<string>(), It.IsAny<HttpContent>()))
+                      .Returns((string uriString, HttpContent content) =>
+                          new Uri(uriString).Query.Contains("healthcheck=true")
+                              ? Task.FromException<HttpResponseMessage>(expectedException)
+                              : Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)));
 
-            exitCode.Should().Be(FAILURE);
-            context.RuntimeErrors.HasFlag(RuntimeConditions.ExceptionPostingLogFile).Should().BeTrue();
-            context.PostUri.Should().BeNullOrEmpty();
+            try
+            {
+                TestAnalyzeOptions options = CreateOptions(AnalyzeThisAssembly, outputFilePath);
+                options.PostUri = "https://example.com";
+
+                (int exitCode, TestAnalysisContext context) =
+                    await CreateCommand(httpClient.Object).RunAsync(options, globalContext: null);
+
+                exitCode.Should().Be(FAILURE);
+                context.RuntimeErrors.HasFlag(RuntimeConditions.ExceptionPostingLogFile).Should().BeTrue();
+                context.PostUri.Should().BeNullOrEmpty();
+                context.RuntimeExceptions.Should().Contain(expectedException);
+                ReadRun(outputFilePath).Should().BeNull();
+                httpClient.Verify(
+                    client => client.PostAsync(It.IsAny<string>(), It.IsAny<HttpContent>()),
+                    Times.Once);
+            }
+            finally
+            {
+                File.Delete(outputFilePath);
+            }
+        }
+
+        private static async Task VerifyAnalysisFailsAfterRejectedHealthCheckAsync(bool runAsynchronously)
+        {
+            string outputFilePath = Path.GetTempFileName();
+
+            try
+            {
+                Mock<HttpClientWrapper> httpClient =
+                    CreateHttpClient(HttpStatusCode.NotFound, HttpStatusCode.OK);
+
+                TestAnalyzeOptions options = CreateOptions(AnalyzeThisAssembly, outputFilePath);
+                options.PostUri = "https://example.com";
+
+                TestAnalysisContext context = null;
+                int exitCode;
+
+                if (runAsynchronously)
+                {
+                    (exitCode, context) =
+                        await CreateCommand(httpClient.Object).RunAsync(options, globalContext: null);
+                }
+                else
+                {
+                    exitCode = CreateCommand(httpClient.Object).Run(options, ref context);
+                }
+
+                exitCode.Should().Be(FAILURE);
+                context.RuntimeErrors.HasFlag(RuntimeConditions.ExceptionPostingLogFile).Should().BeTrue();
+                context.PostUri.Should().BeNullOrEmpty();
+                ReadRun(outputFilePath).Should().BeNull();
+                httpClient.Verify(
+                    client => client.PostAsync(It.IsAny<string>(), It.IsAny<HttpContent>()),
+                    Times.Once);
+            }
+            finally
+            {
+                File.Delete(outputFilePath);
+            }
         }
 
         private static async Task<(RunOutcome Synchronous, RunOutcome Asynchronous)> AnalyzeBothWaysAsync(string targetSpecifier)
