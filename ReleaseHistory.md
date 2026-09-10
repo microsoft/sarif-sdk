@@ -342,6 +342,7 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 * NEW: Add a new `--rule-kind` parameter to `AnalyzeOptionsBase`, which specifies rule kinds to run (`Sarif`, `Ghas`, `Ado`). Example: `--rule-kind Ado;Sarif`.
 
 ## **v4.4.1** UNRELEASED
+* NEW: Add `convert --normalize-for-ghazdo` to stamp converted SARIF with Azure DevOps pipeline `automationDetails` from the current build environment.
 * DEP: Update reference to `System.Collections.Immutable` 5.0.0 for `Sarif` and `Sarif.Converters`.
 * BUG: Emit `WRN997.OneOrMoreFilesSkippedDueToExceedingSizeLimit` when no valid analysis targets are detected (due to exceeding size limits).
 * BUG: Emit `FailureLevel.Note` messages with label `info` (rather than `fail`) in `ConsoleLogger`.
