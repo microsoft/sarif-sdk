@@ -725,6 +725,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void Run_WhenAdoRepositoryUriHasFullProxySegment_EmitsCanonicalRepositoryUri()
+        {
+            FakeEnvironmentVariableGetter env = CompleteAdoEnvWithVcp()
+                .With(AdoPipelineContext.RepositoryUriEnvVar, "https://mseng@dev.azure.com/mseng/AzureDevOps/_git/_full/AzureDevOps");
+
+            int exit = RunWithInput(env, MinimalRun());
+
+            exit.Should().Be(CommandBase.SUCCESS);
+            var events = new SarifEventLogReader().Read(WipPath).ToList();
+            events[0].Payload["versionControlProvenance"][0]["repositoryUri"].ToString()
+                .Should().Be("https://dev.azure.com/mseng/AzureDevOps/_git/AzureDevOps");
+        }
+
+        [Fact]
         public void Run_WhenAdoVcpFieldsPresent_AndJsonHasEmptyVcpArray_AppendsSynthesizedEntry()
         {
             JObject runObject = MinimalRun();
