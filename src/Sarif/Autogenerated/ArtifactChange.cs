@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -37,18 +37,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The location of the artifact to change.
         /// </summary>
         [DataMember(Name = "artifactLocation", IsRequired = true)]
+        [Stj.JsonPropertyName("artifactLocation")]
         public virtual ArtifactLocation ArtifactLocation { get; set; }
 
         /// <summary>
         /// An array of replacement objects, each of which represents the replacement of a single region in a single artifact specified by 'artifactLocation'.
         /// </summary>
         [DataMember(Name = "replacements", IsRequired = true)]
+        [Stj.JsonPropertyName("replacements")]
         public virtual IList<Replacement> Replacements { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the change.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -37,42 +37,49 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The name associated with the translation metadata.
         /// </summary>
         [DataMember(Name = "name", IsRequired = true)]
+        [Stj.JsonPropertyName("name")]
         public virtual string Name { get; set; }
 
         /// <summary>
         /// The full name associated with the translation metadata.
         /// </summary>
         [DataMember(Name = "fullName", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("fullName")]
         public virtual string FullName { get; set; }
 
         /// <summary>
         /// A brief description of the translation metadata.
         /// </summary>
         [DataMember(Name = "shortDescription", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("shortDescription")]
         public virtual MultiformatMessageString ShortDescription { get; set; }
 
         /// <summary>
         /// A comprehensive description of the translation metadata.
         /// </summary>
         [DataMember(Name = "fullDescription", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("fullDescription")]
         public virtual MultiformatMessageString FullDescription { get; set; }
 
         /// <summary>
         /// The absolute URI from which the translation metadata can be downloaded.
         /// </summary>
         [DataMember(Name = "downloadUri", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("downloadUri")]
         public virtual Uri DownloadUri { get; set; }
 
         /// <summary>
         /// The absolute URI from which information related to the translation metadata can be downloaded.
         /// </summary>
         [DataMember(Name = "informationUri", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("informationUri")]
         public virtual Uri InformationUri { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the translation metadata.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

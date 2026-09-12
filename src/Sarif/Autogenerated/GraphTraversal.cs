@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -40,47 +40,57 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The index within the run.graphs to be associated with the result.
         /// </summary>
         [DataMember(Name = "runGraphIndex", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("runGraphIndex")]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual int RunGraphIndex { get; set; }
 
         /// <summary>
         /// The index within the result.graphs to be associated with the result.
         /// </summary>
         [DataMember(Name = "resultGraphIndex", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("resultGraphIndex")]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual int ResultGraphIndex { get; set; }
 
         /// <summary>
         /// A description of this graph traversal.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("description")]
         public virtual Message Description { get; set; }
 
         /// <summary>
         /// Values of relevant expressions at the start of the graph traversal that may change during graph traversal.
         /// </summary>
         [DataMember(Name = "initialState", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("initialState")]
         public virtual IDictionary<string, MultiformatMessageString> InitialState { get; set; }
 
         /// <summary>
         /// Values of relevant expressions at the start of the graph traversal that remain constant for the graph traversal.
         /// </summary>
         [DataMember(Name = "immutableState", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("immutableState")]
         public virtual object ImmutableState { get; set; }
 
         /// <summary>
         /// The sequences of edges traversed by this graph traversal.
         /// </summary>
         [DataMember(Name = "edgeTraversals", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("edgeTraversals")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<EdgeTraversal> EdgeTraversals { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the graph traversal.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

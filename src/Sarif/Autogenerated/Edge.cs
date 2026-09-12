@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -37,30 +37,35 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string that uniquely identifies the edge within its graph.
         /// </summary>
         [DataMember(Name = "id", IsRequired = true)]
+        [Stj.JsonPropertyName("id")]
         public virtual string Id { get; set; }
 
         /// <summary>
         /// A short description of the edge.
         /// </summary>
         [DataMember(Name = "label", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("label")]
         public virtual Message Label { get; set; }
 
         /// <summary>
         /// Identifies the source node (the node at which the edge starts).
         /// </summary>
         [DataMember(Name = "sourceNodeId", IsRequired = true)]
+        [Stj.JsonPropertyName("sourceNodeId")]
         public virtual string SourceNodeId { get; set; }
 
         /// <summary>
         /// Identifies the target node (the node at which the edge ends).
         /// </summary>
         [DataMember(Name = "targetNodeId", IsRequired = true)]
+        [Stj.JsonPropertyName("targetNodeId")]
         public virtual string TargetNodeId { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the edge.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

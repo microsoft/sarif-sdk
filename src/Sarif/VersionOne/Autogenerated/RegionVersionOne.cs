@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,36 +35,42 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// The line number of the first character in the region.
         /// </summary>
         [DataMember(Name = "startLine", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("startLine")]
         public int StartLine { get; set; }
 
         /// <summary>
         /// The column number of the first character in the region.
         /// </summary>
         [DataMember(Name = "startColumn", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("startColumn")]
         public int StartColumn { get; set; }
 
         /// <summary>
         /// The line number of the last character in the region.
         /// </summary>
         [DataMember(Name = "endLine", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("endLine")]
         public int EndLine { get; set; }
 
         /// <summary>
         /// The column number of the last character in the region.
         /// </summary>
         [DataMember(Name = "endColumn", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("endColumn")]
         public int EndColumn { get; set; }
 
         /// <summary>
         /// The zero-based offset from the beginning of the file of the first byte or character in the region.
         /// </summary>
         [DataMember(Name = "offset", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("offset")]
         public int Offset { get; set; }
 
         /// <summary>
         /// The length of the region in bytes or characters.
         /// </summary>
         [DataMember(Name = "length", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("length")]
         public int Length { get; set; }
 
         /// <summary>

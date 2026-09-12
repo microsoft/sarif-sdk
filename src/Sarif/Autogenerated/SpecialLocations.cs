@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -37,12 +37,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Provides a suggestion to SARIF consumers to display file paths relative to the specified location.
         /// </summary>
         [DataMember(Name = "displayBase", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("displayBase")]
         public virtual ArtifactLocation DisplayBase { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the special locations.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

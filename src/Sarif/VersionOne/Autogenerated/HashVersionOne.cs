@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,12 +35,14 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// The hash value of some file or collection of files, computed by the algorithm named in the 'algorithm' property.
         /// </summary>
         [DataMember(Name = "value", IsRequired = true)]
+        [Stj.JsonPropertyName("value")]
         public string Value { get; set; }
 
         /// <summary>
         /// The name of the algorithm used to compute the hash value specified in the 'value' property.
         /// </summary>
         [DataMember(Name = "algorithm", IsRequired = true)]
+        [Stj.JsonPropertyName("algorithm")]
         public AlgorithmKindVersionOne Algorithm { get; set; }
 
         /// <summary>
