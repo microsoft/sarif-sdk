@@ -33,14 +33,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private readonly List<string> _toolKeyOrder;
         private readonly Dictionary<string, Run> _toolKeyToMergedRun;
         private readonly Dictionary<string, RunMergingVisitor> _toolKeyToVisitor;
-        private readonly Dictionary<string, HashSet<Result>> _toolKeyToResults;
 
         public MergeCommand(IFileSystem fileSystem = null) : base(fileSystem)
         {
             _toolKeyOrder = new List<string>();
             _toolKeyToMergedRun = new Dictionary<string, Run>();
             _toolKeyToVisitor = new Dictionary<string, RunMergingVisitor>();
-            _toolKeyToResults = new Dictionary<string, HashSet<Result>>();
         }
 
         public int Run(MergeOptions mergeOptions)
@@ -163,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         if (!_toolKeyToVisitor.TryGetValue(toolKey, out RunMergingVisitor visitor))
                         {
                             visitor = _toolKeyToVisitor[toolKey] = new RunMergingVisitor();
-                            _toolKeyToResults[toolKey] = new HashSet<Result>(Result.ValueComparer);
+                            visitor.DeduplicateResults = true;
                             _toolKeyOrder.Add(toolKey);
 
                             // The first run of a given tool + version supplies the merged run's
@@ -178,17 +176,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             continue;
                         }
 
-                        HashSet<Result> seenResults = _toolKeyToResults[toolKey];
                         foreach (Result result in run.Results)
                         {
-                            // Drop results that are value-identical to one already merged for this
-                            // tool. A sharded scan can re-report the same finding in more than one
-                            // input log; the merged run should carry each finding exactly once.
-                            if (!seenResults.Add(result))
-                            {
-                                continue;
-                            }
-
                             visitor.CurrentRun = run;
                             visitor.VisitResult(result.DeepClone());
                         }
