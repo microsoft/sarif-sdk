@@ -544,9 +544,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             HashData hashData = null;
-            if (_dataToInsert.HasFlag(OptionallyEmittedData.Hashes) && FileRegionsCache != null)
+            if (_dataToInsert.HasFlag(OptionallyEmittedData.Hashes) &&
+                FileRegionsCache != null &&
+                fileLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri resolvedUri) &&
+                resolvedUri.IsFile)
             {
-                hashData = FileRegionsCache.GetHashData(fileLocation.Uri);
+                hashData = FileRegionsCache.GetHashData(resolvedUri);
             }
 
             // Ensure Artifact is in Run.Artifacts and ArtifactLocation.Index is set to point to it

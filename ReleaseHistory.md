@@ -14,6 +14,7 @@ Each release entry below is prefixed with one of:
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
 ## **UNRELEASED**
+* BUG: `SarifLogger` resolves `uriBaseId` before hashing result artifacts and omits hashes when their relative locations cannot be resolved.
 * BUG: `analyze --post-uri` reports the endpoint health-check status and response body or exception when validation fails.
 
 ## **v5.7.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.7.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.7.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.7.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.7.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.7.0)

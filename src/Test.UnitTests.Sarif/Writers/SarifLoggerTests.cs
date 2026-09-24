@@ -380,6 +380,99 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        public void SarifLogger_HashesFileResolvedThroughUriBaseId()
+        {
+            using var tempFile = new TempFile(".txt");
+            File.WriteAllText(tempFile.Name, "the intended file");
+
+            var relativeUri = new Uri(Path.GetFileName(tempFile.Name), UriKind.Relative);
+            var cache = new FileRegionsCache();
+            string unrelatedHash = cache.GetHashData(relativeUri, "a different file").Sha256;
+            var run = new Run
+            {
+                OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
+                {
+                    [TempFileBaseId] = new ArtifactLocation
+                    {
+                        Uri = new Uri(Path.GetDirectoryName(tempFile.Name), UriKind.Absolute)
+                    }
+                }
+            };
+
+            SarifLog log = LogResultWithArtifactHash(relativeUri, TempFileBaseId, run, cache);
+            Artifact artifact = log.Runs[0].Artifacts.Single();
+
+            artifact.Hashes["sha-256"].Should().Be(HashUtilities.ComputeSha256Hash(tempFile.Name));
+            artifact.Hashes["sha-256"].Should().NotBe(unrelatedHash);
+            artifact.Location.Uri.Should().Be(relativeUri);
+            artifact.Location.UriBaseId.Should().Be(TempFileBaseId);
+            log.Runs[0].Results.Single().Locations.Single().PhysicalLocation.ArtifactLocation.Index.Should().Be(0);
+        }
+
+        [Fact]
+        public void SarifLogger_DoesNotHashUnresolvedRelativeFile()
+        {
+            var relativeUri = new Uri($"{Guid.NewGuid():N}.txt", UriKind.Relative);
+            var cache = new FileRegionsCache();
+            cache.GetHashData(relativeUri, "an unrelated file");
+
+            SarifLog log = LogResultWithArtifactHash(relativeUri, TempFileBaseId, new Run(), cache);
+
+            log.Runs[0].Artifacts.Single().Hashes.Should().BeNull();
+            log.Runs[0].Results.Single().Locations.Single().PhysicalLocation.ArtifactLocation.Index.Should().Be(0);
+        }
+
+        [Fact]
+        public void SarifLogger_DoesNotHashFileOutsideUriBaseId()
+        {
+            var relativeUri = new Uri($"../{Guid.NewGuid():N}.txt", UriKind.Relative);
+            var cache = new FileRegionsCache();
+            cache.GetHashData(relativeUri, "a file outside the base");
+            var run = new Run
+            {
+                OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
+                {
+                    [TempFileBaseId] = new ArtifactLocation { Uri = new Uri(Path.GetTempPath(), UriKind.Absolute) }
+                }
+            };
+
+            SarifLog log = LogResultWithArtifactHash(relativeUri, TempFileBaseId, run, cache);
+
+            log.Runs[0].Artifacts.Single().Hashes.Should().BeNull();
+        }
+
+        private static SarifLog LogResultWithArtifactHash(Uri uri, string uriBaseId, Run run, FileRegionsCache cache)
+        {
+            const string ruleId = "RuleId";
+            var rule = new ReportingDescriptor { Id = ruleId };
+            var result = new Result
+            {
+                RuleId = ruleId,
+                Message = new Message { Text = "A test result." },
+                Locations = new[]
+                {
+                    new Location
+                    {
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            ArtifactLocation = new ArtifactLocation { Uri = uri, UriBaseId = uriBaseId }
+                        }
+                    }
+                }
+            };
+
+            var output = new StringBuilder();
+            using (var writer = new StringWriter(output))
+            using (var logger = new SarifLogger(writer, run: run, dataToInsert: OptionallyEmittedData.Hashes,
+                                                fileRegionsCache: cache, levels: BaseLogger.ErrorWarning, kinds: BaseLogger.Fail))
+            {
+                logger.Log(rule, result, null);
+            }
+
+            return JsonConvert.DeserializeObject<SarifLog>(output.ToString());
+        }
+
+        [Fact]
         public void SarifLogger_WritesFileContents_EvenWhenLocationUsesUriBaseId()
         {
             var sb = new StringBuilder();
