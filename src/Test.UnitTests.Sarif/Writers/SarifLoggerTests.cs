@@ -394,10 +394,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     [TempFileBaseId] = new ArtifactLocation
                     {
-                        Uri = new Uri(Path.GetDirectoryName(tempFile.Name), UriKind.Absolute)
+                        Uri = new Uri(new Uri(Path.GetDirectoryName(tempFile.Name), UriKind.Absolute).AbsoluteUri)
                     }
                 }
             };
+
+            var location = new ArtifactLocation { Uri = relativeUri, UriBaseId = TempFileBaseId };
+            location.TryReconstructAbsoluteUri(run.OriginalUriBaseIds, out Uri resolvedUri).Should().BeTrue();
+            resolvedUri.LocalPath.Should().Be(tempFile.Name);
 
             SarifLog log = LogResultWithArtifactHash(relativeUri, TempFileBaseId, run, cache);
             Artifact artifact = log.Runs[0].Artifacts.Single();
@@ -432,7 +436,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
                 {
-                    [TempFileBaseId] = new ArtifactLocation { Uri = new Uri(Path.GetTempPath(), UriKind.Absolute) }
+                    [TempFileBaseId] = new ArtifactLocation { Uri = new Uri(new Uri(Path.GetTempPath(), UriKind.Absolute).AbsoluteUri) }
                 }
             };
 
