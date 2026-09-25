@@ -16,6 +16,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ConvertCommand : CommandBase
     {
+        private readonly IEnvironmentVariableGetter _environment;
+
+        public ConvertCommand() : this(new EnvironmentVariableGetter())
+        {
+        }
+
+        public ConvertCommand(IEnvironmentVariableGetter environment)
+        {
+            _environment = environment ?? throw new ArgumentNullException(nameof(environment));
+        }
+
         public int Run(ConvertOptions convertOptions, IFileSystem fileSystem = null)
         {
             fileSystem ??= Sarif.FileSystem.Instance;
@@ -39,6 +50,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!ValidateOptions(convertOptions, fileSystem)) { return FAILURE; }
 
+                AdoPipelineContext adoContext = null;
+                if (convertOptions.NormalizeForGHAzDO)
+                {
+                    AdoPipelineContext.DetectionState adoState =
+                        AdoPipelineContext.TryDetect(_environment, out adoContext, out string adoError);
+                    if (adoState != AdoPipelineContext.DetectionState.Complete)
+                    {
+                        Console.Error.WriteLine(
+                            adoState == AdoPipelineContext.DetectionState.Partial
+                                ? adoError
+                                : "--normalize-for-ghazdo requires a complete Azure DevOps pipeline environment.");
+                        return FAILURE;
+                    }
+                }
+
                 FilePersistenceOptions logFilePersistenceOptions = FilePersistenceOptions.None;
 
                 OptionallyEmittedData dataToInsert = convertOptions.DataToInsert.ToFlags();
@@ -50,6 +76,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                                 logFilePersistenceOptions,
                                                 dataToInsert,
                                                 convertOptions.PluginAssemblyPath);
+
+                if (adoContext != null && !TryStampAdoContext(convertOptions, adoContext))
+                {
+                    return FAILURE;
+                }
 
 #pragma warning disable CS0618 // Type or member is obsolete
                 if (convertOptions.NormalizeForGhas || convertOptions.NormalizeForGitHub)
@@ -85,6 +116,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return SUCCESS;
+        }
+
+        private static bool TryStampAdoContext(ConvertOptions options, AdoPipelineContext context)
+        {
+            SarifLog log = SarifLog.Load(options.OutputFilePath);
+            foreach (Run run in log.Runs)
+            {
+                if (!context.TryApplyTo(run, out string conflictError))
+                {
+                    Console.Error.WriteLine(conflictError);
+                    return false;
+                }
+            }
+
+            var serializer = new JsonSerializer
+            {
+                Formatting = options.PrettyPrint ? Newtonsoft.Json.Formatting.Indented : Newtonsoft.Json.Formatting.None,
+            };
+            using (FileStream stream = File.Create(options.OutputFilePath))
+            using (var streamWriter = new StreamWriter(stream))
+            using (var writer = new JsonTextWriter(streamWriter))
+            {
+                serializer.Serialize(writer, log);
+            }
+            return true;
         }
 
         private static bool ValidateOptions(ConvertOptions convertOptions, IFileSystem fileSystem)
