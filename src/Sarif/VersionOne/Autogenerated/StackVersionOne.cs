@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,18 +35,21 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// A message relevant to this call stack.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("message")]
         public string Message { get; set; }
 
         /// <summary>
         /// An array of stack frames that represent a sequence of calls, rendered in reverse chronological order, that comprise the call stack.
         /// </summary>
         [DataMember(Name = "frames", IsRequired = true)]
+        [Stj.JsonPropertyName("frames")]
         public IList<StackFrameVersionOne> Frames { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the stack.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

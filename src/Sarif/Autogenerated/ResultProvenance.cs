@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -40,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The Coordinated Universal Time (UTC) date and time at which the result was first detected. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "firstDetectionTimeUtc", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("firstDetectionTimeUtc")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
         public virtual DateTime FirstDetectionTimeUtc { get; set; }
 
@@ -47,6 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The Coordinated Universal Time (UTC) date and time at which the result was most recently detected. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "lastDetectionTimeUtc", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("lastDetectionTimeUtc")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
         public virtual DateTime LastDetectionTimeUtc { get; set; }
 
@@ -54,33 +56,40 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A GUID-valued string equal to the automationDetails.guid property of the run in which the result was first detected.
         /// </summary>
         [DataMember(Name = "firstDetectionRunGuid", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("firstDetectionRunGuid")]
         public virtual Guid? FirstDetectionRunGuid { get; set; }
 
         /// <summary>
         /// A GUID-valued string equal to the automationDetails.guid property of the run in which the result was most recently detected.
         /// </summary>
         [DataMember(Name = "lastDetectionRunGuid", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("lastDetectionRunGuid")]
         public virtual Guid? LastDetectionRunGuid { get; set; }
 
         /// <summary>
         /// The index within the run.invocations array of the invocation object which describes the tool invocation that detected the result.
         /// </summary>
         [DataMember(Name = "invocationIndex", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("invocationIndex")]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual int InvocationIndex { get; set; }
 
         /// <summary>
         /// An array of physicalLocation objects which specify the portions of an analysis tool's output that a converter transformed into the result.
         /// </summary>
         [DataMember(Name = "conversionSources", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("conversionSources")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<PhysicalLocation> ConversionSources { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the result.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

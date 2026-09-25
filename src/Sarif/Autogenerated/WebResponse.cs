@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -40,58 +40,69 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The index within the run.webResponses array of the response object associated with this result.
         /// </summary>
         [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("index")]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual int Index { get; set; }
 
         /// <summary>
         /// The response protocol. Example: 'http'.
         /// </summary>
         [DataMember(Name = "protocol", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("protocol")]
         public virtual string Protocol { get; set; }
 
         /// <summary>
         /// The response version. Example: '1.1'.
         /// </summary>
         [DataMember(Name = "version", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("version")]
         public virtual string Version { get; set; }
 
         /// <summary>
         /// The response status code. Example: 451.
         /// </summary>
         [DataMember(Name = "statusCode", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("statusCode")]
         public virtual int StatusCode { get; set; }
 
         /// <summary>
         /// The response reason. Example: 'Not found'.
         /// </summary>
         [DataMember(Name = "reasonPhrase", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("reasonPhrase")]
         public virtual string ReasonPhrase { get; set; }
 
         /// <summary>
         /// The response headers.
         /// </summary>
         [DataMember(Name = "headers", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("headers")]
         public virtual IDictionary<string, string> Headers { get; set; }
 
         /// <summary>
         /// The body of the response.
         /// </summary>
         [DataMember(Name = "body", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("body")]
         public virtual ArtifactContent Body { get; set; }
 
         /// <summary>
         /// Specifies whether a response was received from the server.
         /// </summary>
         [DataMember(Name = "noResponseReceived", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("noResponseReceived")]
         [DefaultValue(false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual bool NoResponseReceived { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the response.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

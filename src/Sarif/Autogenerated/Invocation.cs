@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -39,24 +39,28 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The command line used to invoke the tool.
         /// </summary>
         [DataMember(Name = "commandLine", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("commandLine")]
         public virtual string CommandLine { get; set; }
 
         /// <summary>
         /// An array of strings, containing in order the command line arguments passed to the tool from the operating system.
         /// </summary>
         [DataMember(Name = "arguments", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("arguments")]
         public virtual IList<string> Arguments { get; set; }
 
         /// <summary>
         /// The locations of any response files specified on the tool's command line.
         /// </summary>
         [DataMember(Name = "responseFiles", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("responseFiles")]
         public virtual IList<ArtifactLocation> ResponseFiles { get; set; }
 
         /// <summary>
         /// The Coordinated Universal Time (UTC) date and time at which the invocation started. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "startTimeUtc", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("startTimeUtc")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
         public virtual DateTime StartTimeUtc { get; set; }
 
@@ -64,6 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The Coordinated Universal Time (UTC) date and time at which the invocation ended. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "endTimeUtc", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("endTimeUtc")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
         public virtual DateTime EndTimeUtc { get; set; }
 
@@ -71,130 +76,155 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The process exit code.
         /// </summary>
         [DataMember(Name = "exitCode", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("exitCode")]
         public virtual int ExitCode { get; set; }
 
         /// <summary>
         /// An array of configurationOverride objects that describe rules related runtime overrides.
         /// </summary>
         [DataMember(Name = "ruleConfigurationOverrides", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("ruleConfigurationOverrides")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<ConfigurationOverride> RuleConfigurationOverrides { get; set; }
 
         /// <summary>
         /// An array of configurationOverride objects that describe notifications related runtime overrides.
         /// </summary>
         [DataMember(Name = "notificationConfigurationOverrides", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("notificationConfigurationOverrides")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<ConfigurationOverride> NotificationConfigurationOverrides { get; set; }
 
         /// <summary>
         /// A list of runtime conditions detected by the tool during the analysis.
         /// </summary>
         [DataMember(Name = "toolExecutionNotifications", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("toolExecutionNotifications")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Notification> ToolExecutionNotifications { get; set; }
 
         /// <summary>
         /// A list of conditions detected by the tool that are relevant to the tool's configuration.
         /// </summary>
         [DataMember(Name = "toolConfigurationNotifications", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("toolConfigurationNotifications")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Notification> ToolConfigurationNotifications { get; set; }
 
         /// <summary>
         /// The reason for the process exit.
         /// </summary>
         [DataMember(Name = "exitCodeDescription", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("exitCodeDescription")]
         public virtual string ExitCodeDescription { get; set; }
 
         /// <summary>
         /// The name of the signal that caused the process to exit.
         /// </summary>
         [DataMember(Name = "exitSignalName", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("exitSignalName")]
         public virtual string ExitSignalName { get; set; }
 
         /// <summary>
         /// The numeric value of the signal that caused the process to exit.
         /// </summary>
         [DataMember(Name = "exitSignalNumber", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("exitSignalNumber")]
         public virtual int ExitSignalNumber { get; set; }
 
         /// <summary>
         /// The reason given by the operating system that the process failed to start.
         /// </summary>
         [DataMember(Name = "processStartFailureMessage", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("processStartFailureMessage")]
         public virtual string ProcessStartFailureMessage { get; set; }
 
         /// <summary>
         /// Specifies whether the tool's execution completed successfully.
         /// </summary>
         [DataMember(Name = "executionSuccessful", IsRequired = true)]
+        [Stj.JsonPropertyName("executionSuccessful")]
         public virtual bool ExecutionSuccessful { get; set; }
 
         /// <summary>
         /// The machine on which the invocation occurred.
         /// </summary>
         [DataMember(Name = "machine", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("machine")]
         public virtual string Machine { get; set; }
 
         /// <summary>
         /// The account under which the invocation occurred.
         /// </summary>
         [DataMember(Name = "account", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("account")]
         public virtual string Account { get; set; }
 
         /// <summary>
         /// The id of the process in which the invocation occurred.
         /// </summary>
         [DataMember(Name = "processId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("processId")]
         public virtual int ProcessId { get; set; }
 
         /// <summary>
         /// An absolute URI specifying the location of the executable that was invoked.
         /// </summary>
         [DataMember(Name = "executableLocation", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("executableLocation")]
         public virtual ArtifactLocation ExecutableLocation { get; set; }
 
         /// <summary>
         /// The working directory for the invocation.
         /// </summary>
         [DataMember(Name = "workingDirectory", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("workingDirectory")]
         public virtual ArtifactLocation WorkingDirectory { get; set; }
 
         /// <summary>
         /// The environment variables associated with the analysis tool process, expressed as key/value pairs.
         /// </summary>
         [DataMember(Name = "environmentVariables", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("environmentVariables")]
         public virtual IDictionary<string, string> EnvironmentVariables { get; set; }
 
         /// <summary>
         /// A file containing the standard input stream to the process that was invoked.
         /// </summary>
         [DataMember(Name = "stdin", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("stdin")]
         public virtual ArtifactLocation Stdin { get; set; }
 
         /// <summary>
         /// A file containing the standard output stream from the process that was invoked.
         /// </summary>
         [DataMember(Name = "stdout", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("stdout")]
         public virtual ArtifactLocation Stdout { get; set; }
 
         /// <summary>
         /// A file containing the standard error stream from the process that was invoked.
         /// </summary>
         [DataMember(Name = "stderr", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("stderr")]
         public virtual ArtifactLocation Stderr { get; set; }
 
         /// <summary>
         /// A file containing the interleaved standard output and standard error stream from the process that was invoked.
         /// </summary>
         [DataMember(Name = "stdoutStderr", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("stdoutStderr")]
         public virtual ArtifactLocation StdoutStderr { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the invocation.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

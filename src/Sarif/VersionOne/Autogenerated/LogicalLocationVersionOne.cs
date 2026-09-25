@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,18 +35,21 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// Identifies the construct in which the result occurred. For example, this property might contain the name of a class or a method.
         /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Identifies the key of the immediate parent of the construct in which the result was detected. For example, this property might point to a logical location that represents the namespace that holds a type.
         /// </summary>
         [DataMember(Name = "parentKey", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("parentKey")]
         public string ParentKey { get; set; }
 
         /// <summary>
         /// The type of construct this logicalLocationComponent refers to. Should be one of 'function', 'member', 'module', 'namespace', 'package', 'resource', or 'type', if any of those accurately describe the construct.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("kind")]
         public string Kind { get; set; }
 
         /// <summary>

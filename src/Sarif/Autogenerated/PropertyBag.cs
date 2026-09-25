@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -39,7 +39,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A set of distinct strings that provide additional information.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("tags")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<string> Tags { get; set; }
 
         /// <summary>

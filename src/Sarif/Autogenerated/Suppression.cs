@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -39,12 +39,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A stable, unique identifier for the suprression in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("guid")]
         public virtual Guid? Guid { get; set; }
 
         /// <summary>
         /// A string that indicates where the suppression is persisted.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = true)]
+        [Stj.JsonPropertyName("kind")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public virtual SuppressionKind Kind { get; set; }
 
@@ -52,6 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string that indicates the review status of the suppression.
         /// </summary>
         [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("status")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public virtual SuppressionStatus Status { get; set; }
 
@@ -59,18 +62,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string representing the justification for the suppression.
         /// </summary>
         [DataMember(Name = "justification", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("justification")]
         public virtual string Justification { get; set; }
 
         /// <summary>
         /// Identifies the location associated with the suppression.
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("location")]
         public virtual Location Location { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the suppression.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

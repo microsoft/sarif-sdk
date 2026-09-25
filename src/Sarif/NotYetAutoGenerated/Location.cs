@@ -9,7 +9,7 @@ using System.Numerics;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -41,47 +41,58 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Value that distinguishes this location from all other locations within a single result object.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("id")]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual BigInteger Id { get; set; }
 
         /// <summary>
         /// Identifies the artifact and region.
         /// </summary>
         [DataMember(Name = "physicalLocation", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("physicalLocation")]
         public virtual PhysicalLocation PhysicalLocation { get; set; }
 
         /// <summary>
         /// The logical locations associated with the result.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("logicalLocations")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<LogicalLocation> LogicalLocations { get; set; }
 
         /// <summary>
         /// A message relevant to the location.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("message")]
         public virtual Message Message { get; set; }
 
         /// <summary>
         /// A set of regions relevant to the location.
         /// </summary>
         [DataMember(Name = "annotations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("annotations")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Region> Annotations { get; set; }
 
         /// <summary>
         /// An array of objects that describe relationships between this location and others.
         /// </summary>
         [DataMember(Name = "relationships", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("relationships")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<LocationRelationship> Relationships { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

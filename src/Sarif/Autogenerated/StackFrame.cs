@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -39,31 +39,37 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The location to which this stack frame refers.
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("location")]
         public virtual Location Location { get; set; }
 
         /// <summary>
         /// The name of the module that contains the code of this stack frame.
         /// </summary>
         [DataMember(Name = "module", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("module")]
         public virtual string Module { get; set; }
 
         /// <summary>
         /// The thread identifier of the stack frame.
         /// </summary>
         [DataMember(Name = "threadId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("threadId")]
         public virtual int ThreadId { get; set; }
 
         /// <summary>
         /// The parameters of the call that is executing.
         /// </summary>
         [DataMember(Name = "parameters", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("parameters")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<string> Parameters { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the stack frame.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
