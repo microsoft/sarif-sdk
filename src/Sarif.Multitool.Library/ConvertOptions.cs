@@ -35,5 +35,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "normalize-for-ghas",
             HelpText = "Normalize converted output to conform to GitHub Advanced Security (GHAS) code scanning ingestion requirements.")]
         public bool NormalizeForGhas { get; set; }
+
+        [Option(
+            "normalize-for-ghazdo",
+            HelpText = "Stamp converted output with the current Azure DevOps pipeline identity required by GHAzDO ingestion.")]
+        public bool NormalizeForGHAzDO { get; set; }
     }
 }
