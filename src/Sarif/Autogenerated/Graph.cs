@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -39,26 +39,32 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A description of the graph.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("description")]
         public virtual Message Description { get; set; }
 
         /// <summary>
         /// An array of node objects representing the nodes of the graph.
         /// </summary>
         [DataMember(Name = "nodes", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("nodes")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Node> Nodes { get; set; }
 
         /// <summary>
         /// An array of edge objects representing the edges of the graph.
         /// </summary>
         [DataMember(Name = "edges", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("edges")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Edge> Edges { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the graph.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

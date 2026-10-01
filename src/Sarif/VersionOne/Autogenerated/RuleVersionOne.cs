@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,54 +35,63 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// A stable, opaque identifier for the rule.
         /// </summary>
         [DataMember(Name = "id", IsRequired = true)]
+        [Stj.JsonPropertyName("id")]
         public string Id { get; set; }
 
         /// <summary>
         /// A rule identifier that is understandable to an end user.
         /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("name")]
         public string Name { get; set; }
 
         /// <summary>
         /// A concise description of the rule. Should be a single sentence that is understandable when visible space is limited to a single line of text.
         /// </summary>
         [DataMember(Name = "shortDescription", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("shortDescription")]
         public string ShortDescription { get; set; }
 
         /// <summary>
         /// A string that describes the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
         /// </summary>
         [DataMember(Name = "fullDescription", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("fullDescription")]
         public string FullDescription { get; set; }
 
         /// <summary>
         /// A set of name/value pairs with arbitrary names. The value within each name/value pair shall consist of plain text interspersed with placeholders, which can be used to format a message in combination with an arbitrary number of additional string arguments.
         /// </summary>
         [DataMember(Name = "messageFormats", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("messageFormats")]
         public IDictionary<string, string> MessageFormats { get; set; }
 
         /// <summary>
         /// A value specifying whether a rule is enabled.
         /// </summary>
         [DataMember(Name = "configuration", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("configuration")]
         public RuleConfigurationVersionOne Configuration { get; set; }
 
         /// <summary>
         /// A value specifying the default severity level of the result.
         /// </summary>
         [DataMember(Name = "defaultLevel", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("defaultLevel")]
         public ResultLevelVersionOne DefaultLevel { get; set; }
 
         /// <summary>
         /// A URI where the primary documentation for the rule can be found.
         /// </summary>
         [DataMember(Name = "helpUri", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("helpUri")]
         public Uri HelpUri { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the rule.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

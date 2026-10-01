@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -37,18 +37,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A message that describes the proposed fix, enabling viewers to present the proposed change to an end user.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("description")]
         public virtual Message Description { get; set; }
 
         /// <summary>
         /// One or more artifact changes that comprise a fix for a result.
         /// </summary>
         [DataMember(Name = "artifactChanges", IsRequired = true)]
+        [Stj.JsonPropertyName("artifactChanges")]
         public virtual IList<ArtifactChange> ArtifactChanges { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the fix.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

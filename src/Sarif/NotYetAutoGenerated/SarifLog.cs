@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -39,6 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The URI of the JSON schema corresponding to the version.
         /// </summary>
         [DataMember(Name = "$schema", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("$schema")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri SchemaUri { get; set; }
 
@@ -46,6 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The SARIF format version of this log file.
         /// </summary>
         [DataMember(Name = "version", IsRequired = true)]
+        [Stj.JsonPropertyName("version")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.SarifVersionConverter))]
         public virtual SarifVersion Version { get; set; }
 
@@ -53,18 +55,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The set of runs contained in this log file.
         /// </summary>
         [DataMember(Name = "runs", IsRequired = true)]
+        [Stj.JsonPropertyName("runs")]
         public virtual IList<Run> Runs { get; set; }
 
         /// <summary>
         /// References to external property files that share data between runs.
         /// </summary>
         [DataMember(Name = "inlineExternalProperties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("inlineExternalProperties")]
         public virtual IList<ExternalProperties> InlineExternalProperties { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the log file.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

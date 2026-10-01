@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -37,30 +37,35 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The address of the location.
         /// </summary>
         [DataMember(Name = "address", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("address")]
         public virtual Address Address { get; set; }
 
         /// <summary>
         /// The location of the artifact.
         /// </summary>
         [DataMember(Name = "artifactLocation", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("artifactLocation")]
         public virtual ArtifactLocation ArtifactLocation { get; set; }
 
         /// <summary>
         /// Specifies a portion of the artifact.
         /// </summary>
         [DataMember(Name = "region", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("region")]
         public virtual Region Region { get; set; }
 
         /// <summary>
         /// Specifies a portion of the artifact that encloses the region. Allows a viewer to display additional context around the region.
         /// </summary>
         [DataMember(Name = "contextRegion", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("contextRegion")]
         public virtual Region ContextRegion { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the physical location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

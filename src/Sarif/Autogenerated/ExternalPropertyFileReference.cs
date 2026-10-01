@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -40,26 +40,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The location of the external property file.
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("location")]
         public virtual ArtifactLocation Location { get; set; }
 
         /// <summary>
         /// A stable, unique identifier for the external property file in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("guid")]
         public virtual Guid? Guid { get; set; }
 
         /// <summary>
         /// A non-negative integer specifying the number of items contained in the external property file.
         /// </summary>
         [DataMember(Name = "itemCount", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("itemCount")]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual int ItemCount { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the external property file.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

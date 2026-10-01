@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -39,31 +39,37 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string that identifies the kind of exception, for example, the fully qualified type name of an object that was thrown, or the symbolic name of a signal.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("kind")]
         public virtual string Kind { get; set; }
 
         /// <summary>
         /// A message that describes the exception.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("message")]
         public virtual string Message { get; set; }
 
         /// <summary>
         /// The sequence of function calls leading to the exception.
         /// </summary>
         [DataMember(Name = "stack", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("stack")]
         public virtual Stack Stack { get; set; }
 
         /// <summary>
         /// An array of exception objects each of which is considered a cause of this exception.
         /// </summary>
         [DataMember(Name = "innerExceptions", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("innerExceptions")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<ExceptionData> InnerExceptions { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the exception.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

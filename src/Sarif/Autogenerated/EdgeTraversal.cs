@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -37,30 +37,35 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Identifies the edge being traversed.
         /// </summary>
         [DataMember(Name = "edgeId", IsRequired = true)]
+        [Stj.JsonPropertyName("edgeId")]
         public virtual string EdgeId { get; set; }
 
         /// <summary>
         /// A message to display to the user as the edge is traversed.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("message")]
         public virtual Message Message { get; set; }
 
         /// <summary>
         /// The values of relevant expressions after the edge has been traversed.
         /// </summary>
         [DataMember(Name = "finalState", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("finalState")]
         public virtual IDictionary<string, MultiformatMessageString> FinalState { get; set; }
 
         /// <summary>
         /// The number of edge traversals necessary to return from a nested graph.
         /// </summary>
         [DataMember(Name = "stepOverEdgeCount", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("stepOverEdgeCount")]
         public virtual int StepOverEdgeCount { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the edge traversal.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
