@@ -147,16 +147,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     !analyzeTask.IsCompleted)
                 {
                     timedOut = true;
+                    bool loggerAlreadyFinalized;
                     lock (globalContext)
                     {
-                        if (!loggerFinalized)
-                        {
-                            Errors.LogAnalysisTimedOut(globalContext);
-                        }
-                        else
-                        {
-                            globalContext.RuntimeErrors |= RuntimeConditions.AnalysisTimedOut;
-                        }
+                        loggerAlreadyFinalized = loggerFinalized;
+                        globalContext.RuntimeErrors |= RuntimeConditions.AnalysisTimedOut;
+                    }
+
+                    if (!loggerAlreadyFinalized)
+                    {
+                        Errors.LogAnalysisTimedOut(globalContext);
                     }
                 }
 
@@ -362,15 +362,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 throw new InvalidOperationException(GetType().Name);
             }
 
-            // Analysis is complete. Generate our stopped event and also dispose
-            // of any disposable logs (which will flush and release locks on
-            // output files).
+            // Analysis is complete. Generate our stopped event and dispose
+            // any disposable logs after recording the final shutdown state.
             lock (globalContext)
             {
-                globalContext.Logger.AnalysisStopped(globalContext.RuntimeErrors);
-                disposableLogger?.Dispose();
                 markLoggerFinalized();
             }
+
+            globalContext.Logger.AnalysisStopped(globalContext.RuntimeErrors);
+            disposableLogger?.Dispose();
 
             if (Path.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase))
             {
