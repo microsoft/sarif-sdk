@@ -114,6 +114,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// </summary>
         private async Task<(int ExitCode, TContext GlobalContext)> RunCoreAsync(TOptions options, TContext globalContext, bool synchronous)
         {
+            Task<int> analyzeTask = null;
+            bool loggerFinalized = false;
+            bool timedOut = false;
+            Exception failure = null;
+            int result = FAILURE;
+
             try
             {
                 globalContext ??= new TContext();
@@ -128,56 +134,78 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 // The analysis is dispatched to the thread pool so that the timeout below covers
                 // the synchronous configuration work that precedes the first await within it.
-                Task<int> analyzeTask = Task.Run(() =>
+                analyzeTask = Task.Run(() =>
                 {
-                    return AnalyzeAsync(methodLocalContext, synchronous);
+                    return AnalyzeAsync(methodLocalContext, synchronous, () => loggerFinalized = true);
                 }, globalContext.CancellationToken);
-
-                int msDelay = globalContext.TimeoutInMilliseconds;
-                int result = FAILURE;
 
                 // Cancel the timeout as soon as analysis settles so a pending timer isn't left
                 // rooted for the (effectively unbounded) default timeout value.
                 using var timeoutSource = new CancellationTokenSource();
-
-                try
+                Task timeoutTask = Task.Delay(globalContext.TimeoutInMilliseconds, timeoutSource.Token);
+                if (await Task.WhenAny(analyzeTask, timeoutTask).ConfigureAwait(false) != analyzeTask &&
+                    !analyzeTask.IsCompleted)
                 {
-                    Task timeoutTask = Task.Delay(msDelay, timeoutSource.Token);
-
-                    if (await Task.WhenAny(analyzeTask, timeoutTask).ConfigureAwait(false) == analyzeTask)
+                    timedOut = true;
+                    lock (globalContext)
                     {
-                        result = await analyzeTask.ConfigureAwait(false);
-                    }
-                    else
-                    {
-                        lock (globalContext)
+                        if (!loggerFinalized)
                         {
                             Errors.LogAnalysisTimedOut(globalContext);
                         }
+                        else
+                        {
+                            globalContext.RuntimeErrors |= RuntimeConditions.AnalysisTimedOut;
+                        }
+                    }
+                }
+
+                timeoutSource.Cancel();
+            }
+            catch (Exception ex)
+            {
+                failure = ex;
+            }
+            finally
+            {
+                try
+                {
+                    if (analyzeTask != null)
+                    {
+                        try
+                        {
+                            int analysisResult = await analyzeTask.ConfigureAwait(false);
+                            if (!timedOut)
+                            {
+                                result = analysisResult;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            failure ??= ex;
+                        }
+                    }
+
+                    if (failure != null)
+                    {
+                        globalContext.RuntimeExceptions ??= new List<Exception>();
+                        ProcessException(globalContext, failure);
+                    }
+                    else if (analyzeTask != null)
+                    {
+                        DriverEventSource.Log.SessionEnded(result, globalContext.RuntimeErrors);
                     }
                 }
                 finally
                 {
-                    timeoutSource.Cancel();
+                    globalContext?.Dispose();
                 }
-
-                DriverEventSource.Log.SessionEnded(result, globalContext.RuntimeErrors);
-                return (result, globalContext);
-            }
-            catch (Exception ex)
-            {
-                globalContext.RuntimeExceptions ??= new List<Exception>();
-                ProcessException(globalContext, ex);
-            }
-            finally
-            {
-                globalContext.Dispose();
             }
 
             return
                 (globalContext.RichReturnCode == true
                     ? (int)globalContext.RuntimeErrors
-                    : FAILURE,
+                    : failure == null ? result : FAILURE,
                  globalContext);
         }
 
@@ -266,7 +294,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             });
         }
 
-        private async Task<int> AnalyzeAsync(TContext globalContext, bool synchronous)
+        private async Task<int> AnalyzeAsync(TContext globalContext, bool synchronous, Action markLoggerFinalized)
         {
             globalContext.FileSystem ??= FileSystem;
 
@@ -288,7 +316,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 await AnalyzeTargetsAsync(globalContext, skimmers).ConfigureAwait(false);
             }
 
-            CompleteAnalysis(globalContext, disposableLogger);
+            CompleteAnalysis(globalContext, disposableLogger, markLoggerFinalized);
 
             // Even if there are fatal errors, if the log file is generated, we can upload it with the ToolExecutionNotifications.
             if (synchronous)
@@ -326,7 +354,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return skimmers;
         }
 
-        private void CompleteAnalysis(TContext globalContext, IDisposable disposableLogger)
+        private void CompleteAnalysis(TContext globalContext, IDisposable disposableLogger, Action markLoggerFinalized)
         {
             // For test purposes, raise an unhandled exception if indicated
             if (RaiseUnhandledExceptionInDriverCode)
@@ -337,8 +365,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // Analysis is complete. Generate our stopped event and also dispose
             // of any disposable logs (which will flush and release locks on
             // output files).
-            globalContext.Logger.AnalysisStopped(globalContext.RuntimeErrors);
-            disposableLogger?.Dispose();
+            lock (globalContext)
+            {
+                globalContext.Logger.AnalysisStopped(globalContext.RuntimeErrors);
+                disposableLogger?.Dispose();
+                markLoggerFinalized();
+            }
 
             if (Path.GetExtension(globalContext.EventsFilePath).Equals(".csv", StringComparison.OrdinalIgnoreCase))
             {
@@ -609,12 +641,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             //    a log file that is byte-for-byte identical to previous log.
             var logResults = Task.Run(() => LogResultsAsync(globalContext));
 
-            await Task.WhenAll(scanWorkers)
-                .ContinueWith(_ => _resultsWritingChannel.Writer.Complete())
+            Task scanWorkersTask = Task.WhenAll(scanWorkers);
+            Task completeResultsChannel = scanWorkersTask.ContinueWith(
+                _ => _resultsWritingChannel.Writer.Complete());
+            await Task.WhenAll(enumerateTargets, scanWorkersTask, completeResultsChannel, logResults)
                 .ConfigureAwait(false);
-
-            await enumerateTargets.ConfigureAwait(false);
-            await logResults.ConfigureAwait(false);
 
             if (_filesMatchingGlobalFileDenyRegex > 0)
             {
