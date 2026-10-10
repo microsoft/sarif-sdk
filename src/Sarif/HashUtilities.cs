@@ -68,8 +68,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         /// <summary>
         /// Computes the requested set of hashes for a file. Returns <c>null</c> if the file
-        /// cannot be opened (e.g., an invalid path, I/O error, access denied, or a mock file
-        /// system returns no stream). Defaults to <see cref="HashAlgorithms.Default"/> (SHA-256 only).
+        /// cannot be opened (e.g., an invalid or unsupported path, I/O error, access denied, or a mock
+        /// file system returns no stream). Defaults to <see cref="HashAlgorithms.Default"/> (SHA-256 only).
         /// </summary>
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5354:SHA1CannotBeUsed")]
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5350:MD5CannotBeUsed")]
@@ -89,6 +89,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 catch (ArgumentException) when (
                     fileName != null &&
                     fileName.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
+                {
+                    return null;
+                }
+                catch (NotSupportedException)
                 {
                     return null;
                 }
