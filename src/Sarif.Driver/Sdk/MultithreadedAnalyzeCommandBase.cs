@@ -143,8 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // rooted for the (effectively unbounded) default timeout value.
                 using var timeoutSource = new CancellationTokenSource();
                 Task timeoutTask = Task.Delay(globalContext.TimeoutInMilliseconds, timeoutSource.Token);
-                if (await Task.WhenAny(analyzeTask, timeoutTask).ConfigureAwait(false) != analyzeTask &&
-                    !analyzeTask.IsCompleted)
+                if (await Task.WhenAny(analyzeTask, timeoutTask).ConfigureAwait(false) != analyzeTask)
                 {
                     timedOut = true;
                     lock (globalContext)

@@ -49,7 +49,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             Task<(int ExitCode, TestAnalysisContext Context)> runTask = runAsynchronously
                 ? command.RunAsync(options, context)
-                : Task.Run(() => RunSynchronously(command, options, context));
+                : Task.Factory.StartNew(
+                    () => RunSynchronously(command, options, context),
+                    CancellationToken.None,
+                    TaskCreationOptions.LongRunning,
+                    TaskScheduler.Default);
 
             try
             {
