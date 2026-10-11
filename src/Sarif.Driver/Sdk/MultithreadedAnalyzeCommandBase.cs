@@ -115,6 +115,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private async Task<(int ExitCode, TContext GlobalContext)> RunCoreAsync(TOptions options, TContext globalContext, bool synchronous)
         {
             Task<int> analyzeTask = null;
+            CancellationTokenSource timeoutSource = null;
+            Task timeoutTask = null;
             bool loggerFinalized = false;
             bool timedOut = false;
             Exception failure = null;
@@ -132,26 +134,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 InitializeEventsSession(globalContext);
 
+                timeoutSource = new CancellationTokenSource();
+                timeoutTask = Task.Delay(globalContext.TimeoutInMilliseconds, timeoutSource.Token);
+
                 // The analysis is dispatched to the thread pool so that the timeout below covers
                 // the synchronous configuration work that precedes the first await within it.
                 analyzeTask = Task.Run(() =>
                 {
-                    return AnalyzeAsync(methodLocalContext, synchronous, () => loggerFinalized = true);
+                    return AnalyzeAsync(methodLocalContext, synchronous, () =>
+                    {
+                        lock (globalContext)
+                        {
+                            timeoutSource.Cancel();
+                            if (!timeoutTask.IsCanceled && !timedOut)
+                            {
+                                timedOut = true;
+                                Errors.LogAnalysisTimedOut(globalContext);
+                            }
+
+                            loggerFinalized = true;
+                        }
+                    });
                 }, globalContext.CancellationToken);
 
-                // Cancel the timeout as soon as analysis settles so a pending timer isn't left
-                // rooted for the (effectively unbounded) default timeout value.
-                using var timeoutSource = new CancellationTokenSource();
-                Task timeoutTask = Task.Delay(globalContext.TimeoutInMilliseconds, timeoutSource.Token);
+                // CompleteAnalysis arbitrates the timeout against logger finalization.
                 if (await Task.WhenAny(analyzeTask, timeoutTask).ConfigureAwait(false) != analyzeTask)
                 {
-                    timedOut = true;
                     lock (globalContext)
                     {
-                        globalContext.RuntimeErrors |= RuntimeConditions.AnalysisTimedOut;
-
-                        if (!loggerFinalized)
+                        if (!timeoutTask.IsCanceled && !loggerFinalized && !timedOut)
                         {
+                            timedOut = true;
                             Errors.LogAnalysisTimedOut(globalContext);
                         }
                     }
@@ -195,7 +208,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 finally
                 {
-                    globalContext?.Dispose();
+                    try
+                    {
+                        globalContext?.Dispose();
+                    }
+                    finally
+                    {
+                        timeoutSource?.Dispose();
+                    }
                 }
             }
 
