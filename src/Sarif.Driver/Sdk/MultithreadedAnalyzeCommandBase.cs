@@ -147,16 +147,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     !analyzeTask.IsCompleted)
                 {
                     timedOut = true;
-                    bool loggerAlreadyFinalized;
                     lock (globalContext)
                     {
-                        loggerAlreadyFinalized = loggerFinalized;
                         globalContext.RuntimeErrors |= RuntimeConditions.AnalysisTimedOut;
-                    }
 
-                    if (!loggerAlreadyFinalized)
-                    {
-                        Errors.LogAnalysisTimedOut(globalContext);
+                        if (!loggerFinalized)
+                        {
+                            Errors.LogAnalysisTimedOut(globalContext);
+                        }
                     }
                 }
 
