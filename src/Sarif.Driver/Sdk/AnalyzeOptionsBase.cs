@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         [Option(
             "timeout-in-seconds",
-            HelpText = "A timeout value expressed in seconds.")]
+            HelpText = "A timeout value expressed in seconds. After timeout, abandon the command, context, and output; resources remain in use until analysis exits.")]
         public int? TimeoutInSeconds { get; set; }
 
         [Option(

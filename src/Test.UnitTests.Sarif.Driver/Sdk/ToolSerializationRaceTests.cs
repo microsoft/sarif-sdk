@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Composition;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,13 +32,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public Task RunAsync_WaitsForLateExtensionRuleLoggingBeforeDisposal()
             => VerifyTimeoutWaitsForAnalysisAsync(runAsynchronously: true, useExtension: true);
 
-        private async Task VerifyTimeoutWaitsForAnalysisAsync(bool runAsynchronously, bool useExtension)
+        [Fact]
+        public Task Run_ReturnsWhileRuleIsBlocked()
+            => VerifyTimeoutWaitsForAnalysisAsync(runAsynchronously: false, useExtension: false, blockRule: true);
+
+        [Fact]
+        public Task RunAsync_ReturnsWhileRuleIsBlocked()
+            => VerifyTimeoutWaitsForAnalysisAsync(runAsynchronously: true, useExtension: false, blockRule: true);
+
+        private async Task VerifyTimeoutWaitsForAnalysisAsync(bool runAsynchronously, bool useExtension, bool blockRule = false)
         {
             using var analysisStarted = new ManualResetEventSlim();
             using var releaseAnalysis = new ManualResetEventSlim();
             using var serializationStarted = new ManualResetEventSlim();
             using var writer = new GatedWriter(serializationStarted);
-            var command = new GatedCommand(writer, analysisStarted, releaseAnalysis, useExtension);
+            var command = new GatedCommand(writer, analysisStarted, releaseAnalysis, useExtension, blockRule);
             var context = new TestAnalysisContext();
             var options = new TestAnalyzeOptions
             {
@@ -61,13 +70,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Assert.True(await Task.Run(() => SpinWait.SpinUntil(
                     () => context.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisTimedOut),
                     TimeSpan.FromSeconds(15))));
-                Assert.False(runTask.IsCompleted);
+                (int exitCode, TestAnalysisContext usedContext) =
+                    await runTask.WaitAsync(TimeSpan.FromSeconds(5));
+                Assert.False(context.Disposed);
                 Assert.False(serializationStarted.IsSet);
 
                 releaseAnalysis.Set();
 
-                (int exitCode, TestAnalysisContext usedContext) =
-                    await runTask.WaitAsync(TimeSpan.FromSeconds(15));
+                Assert.True(await Task.Run(() => SpinWait.SpinUntil(
+                    () => context.Disposed, TimeSpan.FromSeconds(15))));
 
                 Assert.Same(context, usedContext);
                 Assert.Equal(CommandBase.FAILURE, exitCode);
@@ -80,6 +91,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 releaseAnalysis.Set();
                 await runTask.WaitAsync(TimeSpan.FromSeconds(15));
+                Assert.True(await Task.Run(() => SpinWait.SpinUntil(
+                    () => context.Disposed, TimeSpan.FromSeconds(15))));
             }
         }
 
@@ -88,7 +101,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             TestAnalyzeOptions options,
             TestAnalysisContext context)
         {
-            int exitCode = command.Run(options, ref context);
+            int exitCode = ((MultithreadedAnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>)command)
+                .Run(options, ref context);
             return (exitCode, context);
         }
 
@@ -98,16 +112,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             private readonly ManualResetEventSlim analysisStarted;
             private readonly ManualResetEventSlim releaseAnalysis;
             private readonly bool useExtension;
+            private readonly bool blockRule;
 
             internal GatedCommand(TextWriter writer,
                                   ManualResetEventSlim analysisStarted,
                                   ManualResetEventSlim releaseAnalysis,
-                                  bool useExtension)
+                                  bool useExtension,
+                                  bool blockRule)
             {
                 this.writer = writer;
                 this.analysisStarted = analysisStarted;
                 this.releaseAnalysis = releaseAnalysis;
                 this.useExtension = useExtension;
+                this.blockRule = blockRule;
                 DefaultPluginAssemblies = new[] { typeof(ToolSerializationRaceTests).Assembly };
                 var component = new ToolComponent
                 {
@@ -124,6 +141,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
             }
 
+            protected override ISet<Skimmer<TestAnalysisContext>> CreateSkimmers(TestAnalysisContext context)
+                => this.blockRule
+                    ? new HashSet<Skimmer<TestAnalysisContext>> { new GatedRule(this) }
+                    : base.CreateSkimmers(context);
+
             public override void InitializeOutputs(TestAnalysisContext context)
             {
                 var logger = new SarifLogger(this.writer, run: new Run { Tool = Tool },
@@ -134,6 +156,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             protected override void AnalyzeTargets(TestAnalysisContext context,
                                                    IEnumerable<Skimmer<TestAnalysisContext>> skimmers)
             {
+                if (this.blockRule)
+                {
+                    base.AnalyzeTargets(context, skimmers);
+                    return;
+                }
                 this.analysisStarted.Set();
                 this.releaseAnalysis.Wait();
                 LogLateRule(context);
@@ -142,6 +169,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             protected override async Task AnalyzeTargetsAsync(TestAnalysisContext context,
                                                               IEnumerable<Skimmer<TestAnalysisContext>> skimmers)
             {
+                if (this.blockRule)
+                {
+                    await base.AnalyzeTargetsAsync(context, skimmers).ConfigureAwait(false);
+                    return;
+                }
                 this.analysisStarted.Set();
                 await Task.Run(() => this.releaseAnalysis.Wait()).ConfigureAwait(false);
                 LogLateRule(context);
@@ -170,6 +202,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                             Message = new Message { Text = "late notification" },
                         },
                         rule);
+                }
+            }
+
+            [PartNotDiscoverable]
+            private sealed class GatedRule : TestRuleBase
+            {
+                private readonly GatedCommand command;
+
+                internal GatedRule(GatedCommand command) => this.command = command;
+
+                public override string Id => "late-rule";
+
+                public override void Analyze(TestAnalysisContext context)
+                {
+                    this.command.analysisStarted.Set();
+                    this.command.releaseAnalysis.Wait();
+                    this.command.LogLateRule(context);
                 }
             }
         }
