@@ -18,6 +18,8 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
+using Moq;
+
 using Newtonsoft.Json;
 
 using Xunit;
@@ -1274,6 +1276,49 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             invocation.ToolConfigurationNotifications.Should().HaveCount(2);
             invocation.ToolConfigurationNotifications.Where(notification => notification.Locations != null).Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void SarifLogger_LogsNotificationWhenArtifactPathContainsInvalidCharacters()
+        {
+            string invalidCharacter = Path.GetInvalidPathChars()[0].ToString();
+            var fileUri = new Uri($"file:///C:/scanner/invalid{Uri.EscapeDataString(invalidCharacter)}path.cs");
+            var fileSystem = new Mock<IFileSystem>();
+            fileSystem
+                .Setup(fs => fs.FileOpenRead(It.IsAny<string>()))
+                .Throws(new ArgumentException("Invalid path."));
+
+            var fileRegionsCache = new FileRegionsCache(fileSystem: fileSystem.Object);
+            var output = new StringBuilder();
+            using (var writer = new StringWriter(output))
+            using (var sarifLogger = new SarifLogger(writer,
+                                                     dataToInsert: OptionallyEmittedData.Hashes,
+                                                     levels: BaseLogger.ErrorWarningNote,
+                                                     kinds: BaseLogger.Fail,
+                                                     fileRegionsCache: fileRegionsCache))
+            {
+                sarifLogger.LogToolNotification(new Notification
+                {
+                    Level = FailureLevel.Error,
+                    Message = new Message { Text = "Original scanner failure." },
+                    Locations = new[]
+                    {
+                        new Location
+                        {
+                            PhysicalLocation = new PhysicalLocation
+                            {
+                                ArtifactLocation = new ArtifactLocation { Uri = fileUri }
+                            }
+                        }
+                    }
+                }, associatedRule: null);
+            }
+
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(output.ToString());
+            Invocation invocation = sarifLog.Runs[0].Invocations[0];
+            invocation.ToolExecutionNotifications.Single().Message.Text.Should().Be("Original scanner failure.");
+            invocation.ExecutionSuccessful.Should().BeFalse();
+            sarifLog.Runs[0].Artifacts.Single().Hashes.Should().BeNull();
         }
 
         [Fact]

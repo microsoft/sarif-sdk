@@ -444,6 +444,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
             catch (IOException) { }
+            catch (NotSupportedException) { }
             catch (SecurityException) { }
             catch (UnauthorizedAccessException) { }
 

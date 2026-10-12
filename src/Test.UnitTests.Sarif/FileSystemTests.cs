@@ -33,8 +33,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             Directory.CreateDirectory(folderTarget);
             File.WriteAllText(fileTarget, "This is the target file.");
 
-            CreateSymbolicLink(folderSource, folderTarget, isDirectory: true);
-            CreateSymbolicLink(fileSource, fileTarget, isDirectory: false);
+            bool createdFolderSymlink = TryCreateSymbolicLink(folderSource, folderTarget, isDirectory: true);
+            bool createdFileSymlink = TryCreateSymbolicLink(fileSource, fileTarget, isDirectory: false);
+
+            if (!createdFolderSymlink || !createdFileSymlink)
+            {
+                // Symbolic links can be unavailable on some Windows hosts (for example, without
+                // developer/admin privileges). Skip the assertions in that case instead of failing
+                // the suite for a platform capability issue.
+                CleanupDirectoryOrFile(new string[] { folderTarget, folderSource, fileTarget, fileSource });
+                return;
+            }
 
             mockFileSystem.IsSymbolicLink(folderSource).Should().BeTrue();
             mockFileSystem.IsSymbolicLink(folderTarget).Should().BeFalse();
@@ -44,19 +53,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             CleanupDirectoryOrFile(new string[] { folderTarget, folderSource, fileTarget, fileSource });
         }
 
-        private void CreateSymbolicLink(string linkPath, string targetPath, bool isDirectory)
+        private bool TryCreateSymbolicLink(string linkPath, string targetPath, bool isDirectory)
         {
-            string targetType = isDirectory ? "/D" : "";
-            var processStartInfo = new System.Diagnostics.ProcessStartInfo
+            try
             {
-                FileName = "cmd.exe",
-                Arguments = $"/c mklink {targetType} \"{linkPath}\" \"{targetPath}\"",
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-            using (var process = System.Diagnostics.Process.Start(processStartInfo))
+                if (isDirectory)
+                {
+                    Directory.CreateSymbolicLink(linkPath, targetPath);
+                }
+                else
+                {
+                    File.CreateSymbolicLink(linkPath, targetPath);
+                }
+
+                return true;
+            }
+            catch (Exception)
             {
-                process.WaitForExit();
+                return false;
             }
         }
 

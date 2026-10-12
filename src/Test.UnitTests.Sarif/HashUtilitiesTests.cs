@@ -10,6 +10,8 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 
+using Moq;
+
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
@@ -92,6 +94,35 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif
 
                 Console.SetOut(defaultOut);
             }
+        }
+
+        [Fact]
+        public void ComputeHashes_ReturnsNullWhenPathContainsInvalidCharacters()
+        {
+            string invalidPath = $"file{Path.GetInvalidPathChars()[0]}name.txt";
+            var fileSystem = new Mock<IFileSystem>();
+            fileSystem
+                .Setup(fs => fs.FileOpenRead(invalidPath))
+                .Throws(new ArgumentException("Invalid path."));
+
+            HashData hashes = HashUtilities.ComputeHashes(invalidPath, fileSystem.Object);
+
+            hashes.Should().BeNull();
+        }
+
+        [Fact]
+        public void ComputeHashes_PropagatesArgumentExceptionForValidPath()
+        {
+            const string filePath = "valid-file.txt";
+            var fileSystem = new Mock<IFileSystem>();
+            fileSystem
+                .Setup(fs => fs.FileOpenRead(filePath))
+                .Throws(new ArgumentException("Unexpected file-system error."));
+
+            Action computeHashes = () => HashUtilities.ComputeHashes(filePath, fileSystem.Object);
+
+            computeHashes.Should().Throw<ArgumentException>()
+                .WithMessage("Unexpected file-system error.");
         }
 
         [Fact]

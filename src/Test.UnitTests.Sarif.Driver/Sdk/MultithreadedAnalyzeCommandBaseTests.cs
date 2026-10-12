@@ -868,6 +868,68 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void MultithreadedAnalyzeCommandBase_UnsupportedPathDuringScanExceptionLogging()
+        {
+            const string unsupportedPath = @"C:\source\unsupported:path.cs";
+            const string unsupportedPathMessage = "The given path's format is not supported.";
+            var uri = new Uri(unsupportedPath, UriKind.Absolute);
+            var fileSystem = new Mock<IFileSystem>();
+            fileSystem.Setup(fs => fs.FileOpenRead(It.IsAny<string>()))
+                .Throws(new NotSupportedException(unsupportedPathMessage));
+            fileSystem.Setup(fs => fs.FileExists(unsupportedPath)).Returns(true);
+            fileSystem.Setup(fs => fs.FileReadAllText(unsupportedPath))
+                .Throws(new NotSupportedException(unsupportedPathMessage));
+
+            var artifact = new EnumeratedArtifact(fileSystem.Object)
+            {
+                Uri = uri,
+                Stream = new MemoryStream(Encoding.UTF8.GetBytes("scan source")),
+            };
+            var logger = new MemoryStreamSarifLogger(dataToInsert: OptionallyEmittedData.Hashes)
+            {
+                FileRegionsCache = new FileRegionsCache(fileSystem: fileSystem.Object),
+            };
+            var policy = new PropertiesDictionary();
+            policy.SetProperty(TestRule.Behaviors, TestRuleBehaviors.RaiseExceptionInvokingAnalyze);
+            var context = new TestAnalysisContext
+            {
+                TargetsProvider = new ArtifactProvider(new[] { artifact }),
+                DataToInsert = OptionallyEmittedData.Hashes,
+                Logger = logger,
+                Policy = policy,
+            };
+            var options = new TestAnalyzeOptions
+            {
+                DataToInsert = new[] { OptionallyEmittedData.Hashes },
+            };
+            var command = new TestMultithreadedAnalyzeCommand(fileSystem.Object)
+            {
+                DefaultPluginAssemblies = new[] { typeof(TestRule).Assembly },
+            };
+
+            int result = command.Run(options, ref context);
+
+            result.Should().Be(FAILURE);
+            (context.RuntimeErrors & RuntimeConditions.ExceptionInSkimmerAnalyze)
+                .Should().Be(RuntimeConditions.ExceptionInSkimmerAnalyze);
+            fileSystem.Verify(fs => fs.FileOpenRead(unsupportedPath), Times.AtLeastOnce);
+            fileSystem.Verify(fs => fs.FileReadAllText(unsupportedPath), Times.Once);
+
+            SarifLog log = logger.ToSarifLog();
+            Run run = log.Runs.Single();
+            IList<Notification> notifications = run.Invocations.Single().ToolExecutionNotifications;
+            Notification notification = notifications.FirstOrDefault(
+                n => n.Message.Text.Contains(nameof(TargetInvocationException)));
+            notification.Should().NotBeNull();
+            notification.Exception.Should().NotBeNull();
+            run.Artifacts.Should().Contain(artifact =>
+                artifact.Location != null &&
+                artifact.Location.Uri != null &&
+                artifact.Location.Uri.LocalPath == unsupportedPath &&
+                artifact.Hashes == null);
+        }
+
+        [Fact]
         public void ExceptionRaisedInEngine()
         {
             var options = new TestAnalyzeOptions()
