@@ -132,11 +132,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             TestAnalyzeOptions options = CreateOptions();
             options.TimeoutInSeconds = 0;
+            var context = new TestAnalysisContext();
 
-            (int exitCode, TestAnalysisContext context) = await command.RunAsync(options, globalContext: null);
+            Task<(int ExitCode, TestAnalysisContext GlobalContext)> runTask = command.RunAsync(options, context);
+            try
+            {
+                await WaitForAsync(command.AnalysisStarted.Task);
+                bool timeoutReported = await Task.Run(() => SpinWait.SpinUntil(
+                    () => context.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisTimedOut),
+                    PipelineTimeout));
+                timeoutReported.Should().BeTrue("the configured timeout should be reported");
+                runTask.IsCompleted.Should().BeFalse("analysis must be allowed to finish before returning");
+            }
+            finally
+            {
+                command.OpenGate();
+                await runTask.WaitAsync(PipelineTimeout);
+            }
+
+            (int exitCode, TestAnalysisContext returnedContext) = await runTask;
 
             exitCode.Should().Be(FAILURE);
             context.RuntimeErrors.Should().Be(RuntimeConditions.AnalysisTimedOut);
+            returnedContext.Should().BeSameAs(context);
         }
 
         [Fact]
