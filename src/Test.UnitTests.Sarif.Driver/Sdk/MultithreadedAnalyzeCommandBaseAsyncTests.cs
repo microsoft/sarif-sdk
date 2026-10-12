@@ -127,11 +127,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public async Task RunAsync_ReportsTimeoutWhenAnalysisExceedsBudget()
         {
-            // The gate is never opened, so analysis cannot complete and the timeout must win.
+            // Analysis remains gated until after the timeout return.
             var command = new GatedAnalyzeCommand();
 
             TestAnalyzeOptions options = CreateOptions();
-            options.TimeoutInSeconds = 0;
+            options.TimeoutInSeconds = 1;
             var context = new TestAnalysisContext();
 
             Task<(int ExitCode, TestAnalysisContext GlobalContext)> runTask = command.RunAsync(options, context);
@@ -142,12 +142,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     () => context.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisTimedOut),
                     PipelineTimeout));
                 timeoutReported.Should().BeTrue("the configured timeout should be reported");
-                runTask.IsCompleted.Should().BeFalse("analysis must be allowed to finish before returning");
+                await runTask.WaitAsync(TimeSpan.FromSeconds(5));
+                context.Disposed.Should().BeFalse("unfinished analysis still owns the context");
             }
             finally
             {
                 command.OpenGate();
                 await runTask.WaitAsync(PipelineTimeout);
+                (await Task.Run(() => SpinWait.SpinUntil(() => context.Disposed, PipelineTimeout)))
+                    .Should().BeTrue();
             }
 
             (int exitCode, TestAnalysisContext returnedContext) = await runTask;

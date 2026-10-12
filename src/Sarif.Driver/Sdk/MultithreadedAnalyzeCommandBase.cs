@@ -97,7 +97,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// Runs analysis without blocking the calling thread, returning the global context
         /// alongside the exit code. An async method cannot accept the <c>ref</c> parameter that
         /// <see cref="Run(TOptions, ref TContext)"/> uses to hand back a context it created, so
-        /// the context is returned instead. The returned context is always disposed.
+        /// the context is returned instead. After timeout, treat the command, context, and output
+        /// as abandoned: cleanup waits for analysis to exit, which a noncooperative rule can prevent.
         /// </summary>
         public virtual async Task<(int ExitCode, TContext GlobalContext)> RunAsync(TOptions options, TContext globalContext)
         {
@@ -109,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// and asynchronous <see cref="RunAsync(TOptions, TContext)"/> entrypoints. <paramref name="synchronous"/>
         /// selects the synchronous or asynchronous member of each virtual pair the pipeline dispatches to, so
         /// that a subclass overriding either member is honored by the corresponding entrypoint. The context that
-        /// analysis actually used is returned (and always disposed) so the synchronous entrypoint can publish it
+        /// analysis actually used is returned (and disposed after analysis exits) so the synchronous entrypoint can publish it
         /// back through its <c>ref</c> parameter and the asynchronous entrypoint can hand it to its caller.
         /// </summary>
         private async Task<(int ExitCode, TContext GlobalContext)> RunCoreAsync(TOptions options, TContext globalContext, bool synchronous)
@@ -117,6 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Task<int> analyzeTask = null;
             CancellationTokenSource timeoutSource = null;
             Task timeoutTask = null;
+            Task completionTask = null;
             bool loggerFinalized = false;
             bool timedOut = false;
             Exception failure = null;
@@ -178,6 +180,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             finally
             {
+                // Keep resources owned by unfinished analysis without holding up the timeout return.
+                completionTask = timedOut ? Task.Run(CompleteRunAsync) : CompleteRunAsync();
+                if (timedOut)
+                {
+                    _ = completionTask.ContinueWith(
+                        task => Console.Error.WriteLine(task.Exception),
+                        CancellationToken.None,
+                        TaskContinuationOptions.OnlyOnFaulted | TaskContinuationOptions.ExecuteSynchronously,
+                        TaskScheduler.Default);
+                }
+            }
+
+            if (!timedOut)
+            {
+                await completionTask.ConfigureAwait(false);
+            }
+
+            return
+                (globalContext.RichReturnCode == true
+                    ? (int)globalContext.RuntimeErrors
+                    : failure == null ? result : FAILURE,
+                 globalContext);
+
+            async Task CompleteRunAsync()
+            {
                 try
                 {
                     if (analyzeTask != null)
@@ -218,12 +245,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 }
             }
-
-            return
-                (globalContext.RichReturnCode == true
-                    ? (int)globalContext.RuntimeErrors
-                    : failure == null ? result : FAILURE,
-                 globalContext);
         }
 
         private static void InitializeEventsSession(TContext globalContext)
