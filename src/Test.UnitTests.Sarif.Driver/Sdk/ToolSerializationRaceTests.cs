@@ -66,10 +66,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                Assert.True(await Task.Run(() => analysisStarted.Wait(TimeSpan.FromSeconds(15))));
-                Assert.True(await Task.Run(() => SpinWait.SpinUntil(
-                    () => context.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisTimedOut),
-                    TimeSpan.FromSeconds(15))));
+                await WaitUntilAsync(() => analysisStarted.IsSet);
+                await WaitUntilAsync(() => context.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisTimedOut));
                 (int exitCode, TestAnalysisContext usedContext) =
                     await runTask.WaitAsync(TimeSpan.FromSeconds(5));
                 Assert.False(context.Disposed);
@@ -77,8 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 releaseAnalysis.Set();
 
-                Assert.True(await Task.Run(() => SpinWait.SpinUntil(
-                    () => context.Disposed, TimeSpan.FromSeconds(15))));
+                await WaitUntilAsync(() => context.Disposed);
 
                 Assert.Same(context, usedContext);
                 Assert.Equal(CommandBase.FAILURE, exitCode);
@@ -91,9 +88,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 releaseAnalysis.Set();
                 await runTask.WaitAsync(TimeSpan.FromSeconds(15));
-                Assert.True(await Task.Run(() => SpinWait.SpinUntil(
-                    () => context.Disposed, TimeSpan.FromSeconds(15))));
+                await WaitUntilAsync(() => context.Disposed);
             }
+        }
+
+        private static async Task WaitUntilAsync(Func<bool> condition)
+        {
+            DateTime deadline = DateTime.UtcNow.AddSeconds(15);
+            while (!condition() && DateTime.UtcNow < deadline)
+            {
+                await Task.Delay(10);
+            }
+            Assert.True(condition());
         }
 
         private static (int ExitCode, TestAnalysisContext Context) RunSynchronously(
