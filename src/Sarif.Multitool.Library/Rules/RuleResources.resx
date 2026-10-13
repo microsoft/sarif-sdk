@@ -659,6 +659,18 @@ Required keys on 'run.automationDetails.properties':
   <data name="GHAzDO1020_ProvideAutomationDetailsIdFormat_Error_BadPrefix_Text" xml:space="preserve">
     <value>{0}: The 'automationDetails.id' value '{3}' does not start with the expected prefix '{2}'. The {1} service expects ids of the form '{2}&lt;org&gt;/&lt;project&gt;/&lt;buildDefId&gt;/&lt;phaseId&gt;/&lt;branch&gt;/&lt;buildId&gt;'.</value>
   </data>
+  <data name="GHAzDO1021_ProvideValidVersionControlProvenance_FullDescription_Text" xml:space="preserve">
+    <value>The first 'run.versionControlProvenance' entry identifies the source branch and commit that GHAzDO (GitHub Advanced Security for Azure DevOps) uses for downstream processing. When the entry is present, provide a non-blank 'branch' and 'revisionId'. The 40-character all-zero Git revision is a sentinel, not a usable commit identifier.</value>
+  </data>
+  <data name="GHAzDO1021_ProvideValidVersionControlProvenance_Error_MissingBranch_Text" xml:space="preserve">
+    <value>{0}: The first 'versionControlProvenance' entry does not provide a non-blank 'branch'. This value is required by the {1} service to identify the analyzed source branch.</value>
+  </data>
+  <data name="GHAzDO1021_ProvideValidVersionControlProvenance_Error_MissingRevisionId_Text" xml:space="preserve">
+    <value>{0}: The first 'versionControlProvenance' entry does not provide a non-blank 'revisionId'. This value is required by the {1} service to identify the analyzed source commit.</value>
+  </data>
+  <data name="GHAzDO1021_ProvideValidVersionControlProvenance_Error_ZeroRevisionId_Text" xml:space="preserve">
+    <value>{0}: The first 'versionControlProvenance' entry uses the 40-character all-zero Git revision sentinel. The {1} service requires the commit identifier for the analyzed source.</value>
+  </data>
   <data name="GH1011_ReferenceFinalSchema" xml:space="preserve">
     <value>The '$schema' property must refer to the final version of the SARIF 2.1.0 schema. This enables IDEs to provide Intellisense for SARIF log files.
 

@@ -14,6 +14,7 @@ Each release entry below is prefixed with one of:
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
 ## **UNRELEASED**
+* NEW: `GHAzDO1021.ProvideValidVersionControlProvenance` rejects a blank primary branch or revision and the 40-character all-zero Git revision sentinel.
 * BUG: `MultithreadedAnalyzeCommandBase.Run` and `RunAsync` return on timeout without disposing resources still used by unfinished analysis.
 * BUG: `HashUtilities.ComputeHashes` omits hashes for unsupported file paths so scan-exception notifications can be logged.
 * BUG: `SarifLogger` resolves `uriBaseId` before hashing result artifacts and omits hashes when their relative locations cannot be resolved.
