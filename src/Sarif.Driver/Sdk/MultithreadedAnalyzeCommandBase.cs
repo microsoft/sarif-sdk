@@ -788,7 +788,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (results?.Count > 0)
             {
                 if (globalContext.DataToInsert.HasFlag(OptionallyEmittedData.Hashes) &&
-                    artifact is ZipArchiveArtifact)
+                    (artifact is ZipArchiveArtifact || artifact?.Uri?.IsAbsoluteUri == false))
                 {
                     cachingLogger.FileRegionsCache ??=
                         new FileRegionsCache(fileSystem: globalContext.FileSystem);

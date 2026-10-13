@@ -16,6 +16,7 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 ## **UNRELEASED**
 * BUG: `MultithreadedAnalyzeCommandBase.Run` and `RunAsync` return on timeout without disposing resources still used by unfinished analysis.
 * BUG: `HashUtilities.ComputeHashes` omits hashes for unsupported file paths so scan-exception notifications can be logged.
+* BUG: `SarifLogger` emits hashes supplied by base-less in-memory scan targets without reading a same-named file from the working directory.
 * BUG: `SarifLogger` resolves `uriBaseId` before hashing result artifacts and omits hashes when their relative locations cannot be resolved.
 * BUG: `analyze --post-uri` reports the endpoint health-check status and response body or exception when validation fails.
 

@@ -109,6 +109,25 @@ namespace Microsoft.CodeAnalysis.Sarif
             return _cache.ContainsKey(key);
         }
 
+        internal bool TryGetValue(TKey key, out TValue value)
+        {
+            lock (_keysInUseOrder)
+            {
+                if (!_cache.TryGetValue(key, out value))
+                {
+                    return false;
+                }
+
+                if (Capacity > 0 && key.CompareTo(_keysInUseOrder.First.Value) != 0)
+                {
+                    _keysInUseOrder.Remove(key);
+                    _keysInUseOrder.AddFirst(key);
+                }
+
+                return true;
+            }
+        }
+
         /// <summary>
         /// Clear current cache.
         /// </summary>
