@@ -925,5 +925,25 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             hashes.Should().NotBeNull();
             hashes.Sha256.Should().NotBeNullOrWhiteSpace();
         }
+
+        [Fact]
+        public void FileRegionsCache_TryGetArtifactHashData_ReturnsOnlyArtifactHashes()
+        {
+            var uri = new Uri("example.txt", UriKind.Relative);
+            var fileRegionsCache = new FileRegionsCache();
+            var artifact = new EnumeratedArtifact(FileSystem.Instance)
+            {
+                Uri = uri,
+                Contents = "scanned content",
+            };
+
+            fileRegionsCache.GetHashData(uri, "cached file text");
+            fileRegionsCache.TryGetArtifactHashData(uri, out _).Should().BeFalse();
+
+            HashData expected = fileRegionsCache.CacheHashData(uri, artifact);
+
+            fileRegionsCache.TryGetArtifactHashData(uri, out HashData actual).Should().BeTrue();
+            actual.Should().BeSameAs(expected);
+        }
     }
 }

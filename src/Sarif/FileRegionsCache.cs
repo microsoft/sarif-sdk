@@ -18,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         internal readonly Cache<string, string> _fileTextCache;
         internal readonly Cache<string, HashData> _hashDataCache;
+        internal readonly Cache<string, HashData> _artifactHashDataCache;
         internal readonly Cache<string, NewLineIndex> _newLineIndexCache;
 
         /// <summary>
@@ -55,6 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             _fileTextCache = new Cache<string, string>(RetrieveTextForFile, capacity);
             _hashDataCache = new Cache<string, HashData>(BuildHashDataForFile, capacity);
+            _artifactHashDataCache = new Cache<string, HashData>(_ => null, capacity);
             _newLineIndexCache = new Cache<string, NewLineIndex>(BuildIndexForFile, capacity);
         }
 
@@ -120,6 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             _fileTextCache.Clear();
             _hashDataCache.Clear();
+            _artifactHashDataCache.Clear();
             _newLineIndexCache.Clear();
         }
 
@@ -389,7 +392,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             _hashDataCache[path] = hashes;
+            _artifactHashDataCache[path] = hashes;
             return hashes;
+        }
+
+        internal bool TryGetArtifactHashData(Uri uri, out HashData hashes)
+        {
+            return _artifactHashDataCache.TryGetValue(uri.GetFilePath(), out hashes);
         }
 
         /// <summary>

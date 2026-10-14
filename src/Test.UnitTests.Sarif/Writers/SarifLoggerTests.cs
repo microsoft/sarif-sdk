@@ -389,7 +389,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var relativeUri = new Uri(Path.GetFileName(tempFile.Name), UriKind.Relative);
             var cache = new FileRegionsCache();
-            string unrelatedHash = cache.GetHashData(relativeUri, "a different file").Sha256;
+            string unrelatedHash = cache.CacheHashData(
+                relativeUri,
+                new EnumeratedArtifact(FileSystem.Instance)
+                {
+                    Uri = relativeUri,
+                    Contents = "a different file",
+                }).Sha256;
             var run = new Run
             {
                 OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
@@ -420,7 +426,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var relativeUri = new Uri($"{Guid.NewGuid():N}.txt", UriKind.Relative);
             var cache = new FileRegionsCache();
-            cache.GetHashData(relativeUri, "an unrelated file");
+            cache.CacheHashData(
+                relativeUri,
+                new EnumeratedArtifact(FileSystem.Instance)
+                {
+                    Uri = relativeUri,
+                    Contents = "an unrelated file",
+                });
 
             SarifLog log = LogResultWithArtifactHash(relativeUri, TempFileBaseId, new Run(), cache);
 
@@ -433,7 +445,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var relativeUri = new Uri($"../{Guid.NewGuid():N}.txt", UriKind.Relative);
             var cache = new FileRegionsCache();
-            cache.GetHashData(relativeUri, "a file outside the base");
+            cache.CacheHashData(
+                relativeUri,
+                new EnumeratedArtifact(FileSystem.Instance)
+                {
+                    Uri = relativeUri,
+                    Contents = "a file outside the base",
+                });
             var run = new Run
             {
                 OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
@@ -445,6 +463,43 @@ namespace Microsoft.CodeAnalysis.Sarif
             SarifLog log = LogResultWithArtifactHash(relativeUri, TempFileBaseId, run, cache);
 
             log.Runs[0].Artifacts.Single().Hashes.Should().BeNull();
+        }
+
+        [Fact]
+        public void SarifLogger_HashesBaseLessRelativeArtifactFromArtifactCache()
+        {
+            const string ScannedContent = "scanned content";
+            var relativeUri = new Uri("example.txt", UriKind.Relative);
+            var fileSystem = new Mock<IFileSystem>();
+            var cache = new FileRegionsCache(fileSystem: fileSystem.Object);
+            cache.CacheHashData(
+                relativeUri,
+                new EnumeratedArtifact(fileSystem.Object)
+                {
+                    Uri = relativeUri,
+                    Contents = ScannedContent,
+                });
+
+            SarifLog log = LogResultWithArtifactHash(relativeUri, uriBaseId: null, new Run(), cache);
+
+            Artifact artifact = log.Runs[0].Artifacts.Single();
+            artifact.Hashes["sha-256"].Should().Be(
+                HashUtilities.ComputeHashesForText(ScannedContent).Sha256);
+            fileSystem.Verify(fs => fs.FileOpenRead(It.IsAny<string>()), Times.Never);
+        }
+
+        [Fact]
+        public void SarifLogger_DoesNotUseNonArtifactCacheForBaseLessRelativeFile()
+        {
+            var relativeUri = new Uri("example.txt", UriKind.Relative);
+            var fileSystem = new Mock<IFileSystem>();
+            var cache = new FileRegionsCache(fileSystem: fileSystem.Object);
+            cache.GetHashData(relativeUri, "cached file text");
+
+            SarifLog log = LogResultWithArtifactHash(relativeUri, uriBaseId: null, new Run(), cache);
+
+            log.Runs[0].Artifacts.Single().Hashes.Should().BeNull();
+            fileSystem.Verify(fs => fs.FileOpenRead(It.IsAny<string>()), Times.Never);
         }
 
         private static SarifLog LogResultWithArtifactHash(Uri uri, string uriBaseId, Run run, FileRegionsCache cache)

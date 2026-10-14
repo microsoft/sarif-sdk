@@ -292,6 +292,58 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
+        public void MultithreadedAnalyzeCommandBase_RelativeInMemoryResultUsesScannedContentHash()
+        {
+            const string ScannedContent = "scanned content";
+            const string UnrelatedContent = "unrelated file content";
+            const string RelativePath = "example.txt";
+
+            var fileSystem = new Mock<IFileSystem>();
+            fileSystem
+                .Setup(fs => fs.FileOpenRead(RelativePath))
+                .Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(UnrelatedContent)));
+
+            using var logger = new MemoryStreamSarifLogger(
+                dataToInsert: OptionallyEmittedData.Hashes,
+                levels: BaseLogger.ErrorWarningNote,
+                kinds: BaseLogger.Fail);
+
+            var artifact = new EnumeratedArtifact(fileSystem.Object)
+            {
+                Uri = new Uri(RelativePath, UriKind.Relative),
+                Contents = ScannedContent,
+            };
+
+            var properties = new PropertiesDictionary();
+            properties.SetProperty(TestRule.Behaviors, TestRuleBehaviors.LogError);
+
+            var context = new TestAnalysisContext
+            {
+                Logger = logger,
+                Policy = properties,
+                TargetsProvider = new ArtifactProvider(new[] { artifact }),
+            };
+
+            var options = new TestAnalyzeOptions
+            {
+                DataToInsert = new[] { OptionallyEmittedData.Hashes },
+            };
+
+            int result = new TestMultithreadedAnalyzeCommand(fileSystem.Object).Run(options, ref context);
+            context.ValidateCommandExecution(result);
+
+            Run run = logger.ToSarifLog().Runs.Single();
+            Artifact resultArtifact = run.Artifacts.Single(
+                candidate => candidate.Location.Uri == artifact.Uri);
+
+            resultArtifact.Hashes["sha-256"].Should().Be(
+                HashUtilities.ComputeHashesForText(ScannedContent).Sha256);
+            resultArtifact.Hashes["sha-256"].Should().NotBe(
+                HashUtilities.ComputeHashesForText(UnrelatedContent).Sha256);
+            fileSystem.Verify(fs => fs.FileOpenRead(RelativePath), Times.Never);
+        }
+
+        [Fact]
         public void MultithreadedAnalyzeCommandBase_SkipsOversizedOpcFilesBeforeOpening()
         {
             var logger = new TestMessageLogger();
