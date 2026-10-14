@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,18 +35,21 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// The location of the file as a valid URI.
         /// </summary>
         [DataMember(Name = "uri", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("uri")]
         public Uri Uri { get; set; }
 
         /// <summary>
         /// A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.
         /// </summary>
         [DataMember(Name = "uriBaseId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("uriBaseId")]
         public string UriBaseId { get; set; }
 
         /// <summary>
         /// The region within the file where the result was detected.
         /// </summary>
         [DataMember(Name = "region", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("region")]
         public RegionVersionOne Region { get; set; }
 
         /// <summary>

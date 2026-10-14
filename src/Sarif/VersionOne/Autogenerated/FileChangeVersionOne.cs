@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,18 +35,21 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// A string that represents the location of the file to change as a valid URI.
         /// </summary>
         [DataMember(Name = "uri", IsRequired = true)]
+        [Stj.JsonPropertyName("uri")]
         public Uri Uri { get; set; }
 
         /// <summary>
         /// A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.
         /// </summary>
         [DataMember(Name = "uriBaseId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("uriBaseId")]
         public string UriBaseId { get; set; }
 
         /// <summary>
         /// An array of replacement objects, each of which represents the replacement of a single range of bytes in a single file specified by 'uri'.
         /// </summary>
         [DataMember(Name = "replacements", IsRequired = true)]
+        [Stj.JsonPropertyName("replacements")]
         public IList<ReplacementVersionOne> Replacements { get; set; }
 
         /// <summary>

@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -40,32 +40,38 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The id of the descriptor.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("id")]
         public virtual string Id { get; set; }
 
         /// <summary>
         /// The index into an array of descriptors in toolComponent.ruleDescriptors, toolComponent.notificationDescriptors, or toolComponent.taxonomyDescriptors, depending on context.
         /// </summary>
         [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("index")]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual int Index { get; set; }
 
         /// <summary>
         /// A guid that uniquely identifies the descriptor.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("guid")]
         public virtual Guid? Guid { get; set; }
 
         /// <summary>
         /// A reference used to locate the toolComponent associated with the descriptor.
         /// </summary>
         [DataMember(Name = "toolComponent", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("toolComponent")]
         public virtual ToolComponentReference ToolComponent { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the reporting descriptor reference.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
