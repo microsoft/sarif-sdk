@@ -222,5 +222,64 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             ResultsFor(output, "GHAzDO1020").Should().ContainSingle()
                 .Which.Level.Should().Be(FailureLevel.Error);
         }
+
+        [Fact]
+        public void GHAzDO1021_WhenProvenanceIsValid_NoResult()
+        {
+            SarifLog log = CreateValidGHAzDOSarifLog();
+
+            SarifLog output = RunGHAzDOValidation(log);
+
+            ResultsFor(output, "GHAzDO1021").Should().BeEmpty();
+        }
+
+        [Fact]
+        public void GHAzDO1021_WhenBranchIsBlank_ReportsError()
+        {
+            SarifLog log = CreateValidGHAzDOSarifLog();
+            log.Runs[0].VersionControlProvenance[0].Branch = " ";
+
+            SarifLog output = RunGHAzDOValidation(log);
+
+            ResultsFor(output, "GHAzDO1021").Should().ContainSingle()
+                .Which.Level.Should().Be(FailureLevel.Error);
+        }
+
+        [Fact]
+        public void GHAzDO1021_WhenRevisionIdIsBlank_ReportsError()
+        {
+            SarifLog log = CreateValidGHAzDOSarifLog();
+            log.Runs[0].VersionControlProvenance[0].RevisionId = " ";
+
+            SarifLog output = RunGHAzDOValidation(log);
+
+            ResultsFor(output, "GHAzDO1021").Should().ContainSingle()
+                .Which.Level.Should().Be(FailureLevel.Error);
+        }
+
+        [Fact]
+        public void GHAzDO1021_WhenRevisionIdIsAllZeroes_ReportsError()
+        {
+            SarifLog log = CreateValidGHAzDOSarifLog();
+            log.Runs[0].VersionControlProvenance[0].Branch = "refs/heads/unknown";
+            log.Runs[0].VersionControlProvenance[0].RevisionId =
+                GHAzDOProvideValidVersionControlProvenance.ZeroGitRevision;
+
+            SarifLog output = RunGHAzDOValidation(log);
+
+            ResultsFor(output, "GHAzDO1021").Should().ContainSingle()
+                .Which.Level.Should().Be(FailureLevel.Error);
+        }
+
+        [Fact]
+        public void GHAzDO1021_WhenBranchIsNamedUnknownWithRealRevision_NoResult()
+        {
+            SarifLog log = CreateValidGHAzDOSarifLog();
+            log.Runs[0].VersionControlProvenance[0].Branch = "refs/heads/unknown";
+
+            SarifLog output = RunGHAzDOValidation(log);
+
+            ResultsFor(output, "GHAzDO1021").Should().BeEmpty();
+        }
     }
 }

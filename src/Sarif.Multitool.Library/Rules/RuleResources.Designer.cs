@@ -267,6 +267,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("GHAzDO1020_ProvideAutomationDetailsIdFormat_Error_BadPrefix_Text", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The first &apos;run.versionControlProvenance&apos; entry identifies the source branch and commit that GHAzDO uses for downstream processing.
+        /// </summary>
+        internal static string GHAzDO1021_ProvideValidVersionControlProvenance_FullDescription_Text {
+            get {
+                return ResourceManager.GetString("GHAzDO1021_ProvideValidVersionControlProvenance_FullDescription_Text", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The first &apos;versionControlProvenance&apos; entry does not provide a non-blank &apos;branch&apos;.
+        /// </summary>
+        internal static string GHAzDO1021_ProvideValidVersionControlProvenance_Error_MissingBranch_Text {
+            get {
+                return ResourceManager.GetString("GHAzDO1021_ProvideValidVersionControlProvenance_Error_MissingBranch_Text", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The first &apos;versionControlProvenance&apos; entry does not provide a non-blank &apos;revisionId&apos;.
+        /// </summary>
+        internal static string GHAzDO1021_ProvideValidVersionControlProvenance_Error_MissingRevisionId_Text {
+            get {
+                return ResourceManager.GetString("GHAzDO1021_ProvideValidVersionControlProvenance_Error_MissingRevisionId_Text", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The first &apos;versionControlProvenance&apos; entry uses the 40-character all-zero Git revision sentinel.
+        /// </summary>
+        internal static string GHAzDO1021_ProvideValidVersionControlProvenance_Error_ZeroRevisionId_Text {
+            get {
+                return ResourceManager.GetString("GHAzDO1021_ProvideValidVersionControlProvenance_Error_ZeroRevisionId_Text", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Rule metadata should provide information that makes it easy to understand and fix the problem.
