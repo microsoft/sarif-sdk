@@ -7,7 +7,7 @@ using System.Linq;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class GHAzDOProvideRequiredPhysicalLocationProperties
-        : BaseProvideRequiredResultProperties
+        : BaseProvideRequiredPhysicalLocationProperties
     {
         /// <summary>
         /// GHAzDO1017
