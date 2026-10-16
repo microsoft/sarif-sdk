@@ -445,6 +445,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: In this &apos;region&apos; object, the &apos;endColumn&apos; property &apos;{2}&apos; is less than the &apos;startColumn&apos; property &apos;{3}&apos;. The properties of a &apos;region&apos; object must be internally consistent for the {1} service..
+        /// </summary>
+        internal static string Base1017_ProvideRequiredPhysicalLocationProperties_Error_EndColumnMustNotPrecedeStartColumn_Text {
+            get {
+                return ResourceManager.GetString("Base1017_ProvideRequiredPhysicalLocationProperties_Error_EndColumnMustNotPrecedeStartColumn_Text", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: In this &apos;region&apos; object, the &apos;endLine&apos; property &apos;{2}&apos; is less than the &apos;startLine&apos; property &apos;{3}&apos;. The properties of a &apos;region&apos; object must be internally consistent for the {1} service..
+        /// </summary>
+        internal static string Base1017_ProvideRequiredPhysicalLocationProperties_Error_EndLineMustNotPrecedeStartLine_Text {
+            get {
+                return ResourceManager.GetString("Base1017_ProvideRequiredPhysicalLocationProperties_Error_EndLineMustNotPrecedeStartLine_Text", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to {0}: This &apos;physicalLocation&apos; object does not provide an &apos;artifactLocation&apos; object. This property is required by the {1} service..
         /// </summary>
         internal static string Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocation_Text {
