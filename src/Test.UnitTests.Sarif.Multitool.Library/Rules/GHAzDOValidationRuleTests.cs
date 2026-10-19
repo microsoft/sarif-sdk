@@ -280,6 +280,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void GHAzDO1017_WhenLocationsMissing_DoesNotDuplicateResultPropertyError()
+            => AssertMissingResultLocations(null, "Error_MissingLocationsArray");
+
+        [Fact]
+        public void GHAzDO1017_WhenLocationsEmpty_DoesNotDuplicateResultPropertyError()
+            => AssertMissingResultLocations(System.Array.Empty<Location>(), "Error_EmptyLocationsArray");
+
+        private static void AssertMissingResultLocations(IList<Location> locations, string messageId)
+        {
+            SarifLog log = CreateValidGHAzDOSarifLog();
+            log.Runs[0].Results.Add(new Result
+            {
+                RuleId = "RULE001",
+                Message = new Message { Text = "Example finding." },
+                Locations = locations
+            });
+
+            SarifLog output = RunGHAzDOValidation(log);
+
+            output.Runs[0].Results.Should().NotContain(
+                r => r.RuleId.StartsWith("JSON", System.StringComparison.Ordinal));
+            Result result = ResultsFor(output, "GHAzDO1015").Should().ContainSingle().Which;
+            result.Level.Should().Be(FailureLevel.Error);
+            result.Message.Id.Should().Be(messageId);
+            ResultsFor(output, "GHAzDO1017").Should().BeEmpty();
+        }
+
+        [Fact]
         public void GHAzDO1017_WhenPhysicalLocationHasUri_NoResult()
             => AssertValidPhysicalLocation("GHAzDO1017", useArtifactIndex: false);
 
