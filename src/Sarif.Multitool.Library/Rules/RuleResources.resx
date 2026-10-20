@@ -558,6 +558,12 @@ Semantics: Assuming the reader of the log file (an end user or another tool) has
   <data name="GH2012_ProvideRequiredReportingDescriptorProperties_Error_MissingShortDescription_Text" xml:space="preserve">
     <value>{0}: This 'reportingDescriptor' object does not provide a 'shortDescription' value. This property is required by the {1} service.</value>
   </data>
+  <data name="Base1017_ProvideRequiredPhysicalLocationProperties_Error_EndColumnMustNotPrecedeStartColumn_Text" xml:space="preserve">
+    <value>{0}: In this 'region' object, the 'endColumn' property '{2}' is less than the 'startColumn' property '{3}'. The properties of a 'region' object must be internally consistent for the {1} service.</value>
+  </data>
+  <data name="Base1017_ProvideRequiredPhysicalLocationProperties_Error_EndLineMustNotPrecedeStartLine_Text" xml:space="preserve">
+    <value>{0}: In this 'region' object, the 'endLine' property '{2}' is less than the 'startLine' property '{3}'. The properties of a 'region' object must be internally consistent for the {1} service.</value>
+  </data>
   <data name="Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocation_Text" xml:space="preserve">
     <value>{0}: This 'physicalLocation' object does not provide an 'artifactLocation' object. This property is required by the {1} service.</value>
   </data>

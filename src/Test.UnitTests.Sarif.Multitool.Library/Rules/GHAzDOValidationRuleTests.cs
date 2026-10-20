@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return log;
         }
 
-        private static SarifLog RunGHAzDOValidation(SarifLog inputLog)
+        private static SarifLog RunGHAzDOValidation(SarifLog inputLog, List<RuleKind> ruleKinds = null)
         {
             string inputPath = Path.GetTempFileName() + ".sarif";
             string outputPath = Path.GetTempFileName() + ".sarif";
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     TargetFileSpecifiers = new[] { inputPath },
                     OutputFilePath = outputPath,
                     OutputFileOptions = new[] { FilePersistenceOptions.ForceOverwrite },
-                    RuleKindOption = new List<RuleKind> { RuleKind.GHAzDO },
+                    RuleKindOption = ruleKinds ?? new List<RuleKind> { RuleKind.GHAzDO },
                     Kind = new List<ResultKind> { ResultKind.Fail },
                     Level = new List<FailureLevel> { FailureLevel.Note, FailureLevel.Warning, FailureLevel.Error }
                 };
@@ -109,6 +109,237 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static List<Result> ResultsFor(SarifLog output, string ruleId)
             => output.Runs[0].Results.Where(r => r.RuleId == ruleId).ToList();
+
+        private static SarifLog RunLocationValidation(
+            Location location,
+            Artifact[] artifacts = null,
+            List<RuleKind> ruleKinds = null)
+        {
+            SarifLog log = CreateValidGHAzDOSarifLog();
+            log.Runs[0].Artifacts = artifacts;
+            log.Runs[0].Results.Add(new Result
+            {
+                RuleId = "RULE001",
+                Message = new Message { Text = "Example finding." },
+                Locations = new[] { location }
+            });
+
+            SarifLog output = RunGHAzDOValidation(log, ruleKinds);
+            output.Runs[0].Results.Should().NotContain(
+                r => r.RuleId.StartsWith("JSON", System.StringComparison.Ordinal),
+                "the location regression fixtures must be schema-valid");
+            return output;
+        }
+
+        [Fact]
+        public void GHAzDO1016_WhenPhysicalLocationMissing_ReportsError()
+            => AssertMissingPhysicalLocation(
+                new List<RuleKind> { RuleKind.GHAzDO },
+                "GHAzDO1016",
+                "GHAzDO (GitHub Advanced Security for Azure DevOps)");
+
+        [Fact]
+        public void GHAzDO1016_WhenSelectedWithSarifAndAIAndPhysicalLocationMissing_ReportsError()
+            => AssertMissingPhysicalLocation(
+                new List<RuleKind> { RuleKind.Sarif, RuleKind.AI, RuleKind.GHAzDO },
+                "GHAzDO1016",
+                "GHAzDO (GitHub Advanced Security for Azure DevOps)");
+
+        [Fact]
+        public void GH1016_WhenPhysicalLocationMissing_ReportsError()
+            => AssertMissingPhysicalLocation(
+                new List<RuleKind> { RuleKind.Ghas },
+                "GH1016",
+                "GitHub Advanced Security");
+
+        private static void AssertMissingPhysicalLocation(List<RuleKind> ruleKinds, string ruleId, string serviceName)
+        {
+            SarifLog output = RunLocationValidation(new Location(), ruleKinds: ruleKinds);
+
+            Result result = ResultsFor(output, ruleId).Should().ContainSingle().Which;
+            result.Level.Should().Be(FailureLevel.Error);
+            result.Message.Id.Should().Be("Error_MissingPhysicalLocation");
+            result.Message.Arguments.Should().Equal("runs[0].results[0].locations[0]", serviceName);
+            result.GetMessageText(result.GetRule(output.Runs[0])).Should().Be(
+                $"runs[0].results[0].locations[0]: This 'location' object does not provide a 'physicalLocation' object. This property is required by the {serviceName} service.");
+        }
+
+        [Fact]
+        public void GHAzDO1016_WhenPhysicalLocationHasUri_NoResult()
+            => AssertValidPhysicalLocation("GHAzDO1016", useArtifactIndex: false);
+
+        [Fact]
+        public void GHAzDO1016_WhenPhysicalLocationUsesArtifactIndex_NoResult()
+            => AssertValidPhysicalLocation("GHAzDO1016", useArtifactIndex: true);
+
+        private static void AssertValidPhysicalLocation(string ruleId, bool useArtifactIndex)
+        {
+            var artifactLocation = new ArtifactLocation
+            {
+                Uri = new System.Uri("src/example.cs", System.UriKind.Relative)
+            };
+            SarifLog output = RunLocationValidation(
+                new Location
+                {
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        ArtifactLocation = useArtifactIndex ? new ArtifactLocation { Index = 0 } : artifactLocation,
+                        Region = new Region { StartLine = 1 }
+                    }
+                },
+                new[] { new Artifact { Location = artifactLocation } });
+
+            ResultsFor(output, ruleId).Should().BeEmpty();
+        }
+
+        [Fact]
+        public void GHAzDO1017_WhenArtifactLocationMissing_ReportsError()
+            => AssertPhysicalLocationError(
+                new PhysicalLocation
+                {
+                    Address = new Address { AbsoluteAddress = 4096 },
+                    Region = new Region { StartLine = 1 }
+                },
+                "Error_MissingArtifactLocation",
+                "runs[0].results[0].locations[0].physicalLocation",
+                "This 'physicalLocation' object does not provide an 'artifactLocation' object. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.");
+
+        [Fact]
+        public void GHAzDO1017_WhenRegionMissing_ReportsError()
+            => AssertPhysicalLocationError(
+                new PhysicalLocation
+                {
+                    ArtifactLocation = new ArtifactLocation { Uri = new System.Uri("src/example.cs", System.UriKind.Relative) }
+                },
+                "Error_MissingRegion",
+                "runs[0].results[0].locations[0].physicalLocation",
+                "The 'physicalLocation' object does not provide a 'region' object. This property is required by the GHAzDO (GitHub Advanced Security for Azure DevOps) service.");
+
+        [Fact]
+        public void GHAzDO1017_WhenArtifactLocationAndRegionMissing_ReportsBothErrors()
+        {
+            SarifLog output = RunLocationValidation(new Location
+            {
+                PhysicalLocation = new PhysicalLocation { Address = new Address { AbsoluteAddress = 4096 } }
+            });
+
+            List<Result> results = ResultsFor(output, "GHAzDO1017");
+            results.Should().HaveCount(2).And.OnlyContain(r => r.Level == FailureLevel.Error);
+            results.Select(r => r.Message.Id).Should().BeEquivalentTo(
+                new[] { "Error_MissingArtifactLocation", "Error_MissingRegion" });
+        }
+
+        [Fact]
+        public void GHAzDO1017_WhenRegionStartMissing_ReportsError()
+            => AssertInvalidRegion(
+                new Region(),
+                "Error_RegionStartPropertyMustBePresent",
+                "runs[0].results[0].locations[0].physicalLocation.region",
+                "This 'region' object does not specify 'startLine', 'charOffset', or 'byteOffset'. As a result, it is impossible to determine whether this 'region' object describes a line/column text region, a character offset/length text region, or a binary region.");
+
+        [Fact]
+        public void GHAzDO1017_WhenEndLinePrecedesStartLine_ReportsCorrectLineNumbers()
+            => AssertInvalidRegion(
+                new Region { StartLine = 5, EndLine = 3 },
+                "Error_EndLineMustNotPrecedeStartLine",
+                "runs[0].results[0].locations[0].physicalLocation.region.endLine",
+                "In this 'region' object, the 'endLine' property '3' is less than the 'startLine' property '5'. The properties of a 'region' object must be internally consistent for the GHAzDO (GitHub Advanced Security for Azure DevOps) service.");
+
+        [Fact]
+        public void GHAzDO1017_WhenEndColumnPrecedesStartColumn_ReportsCorrectColumnNumbers()
+            => AssertInvalidRegion(
+                new Region { StartLine = 1, StartColumn = 9, EndColumn = 3 },
+                "Error_EndColumnMustNotPrecedeStartColumn",
+                "runs[0].results[0].locations[0].physicalLocation.region.endColumn",
+                "In this 'region' object, the 'endColumn' property '3' is less than the 'startColumn' property '9'. The properties of a 'region' object must be internally consistent for the GHAzDO (GitHub Advanced Security for Azure DevOps) service.");
+
+        private static void AssertInvalidRegion(Region region, string messageId, string pointer, string message)
+            => AssertPhysicalLocationError(
+                new PhysicalLocation
+                {
+                    ArtifactLocation = new ArtifactLocation { Uri = new System.Uri("src/example.cs", System.UriKind.Relative) },
+                    Region = region
+                },
+                messageId,
+                pointer,
+                message);
+
+        private static void AssertPhysicalLocationError(
+            PhysicalLocation physicalLocation,
+            string messageId,
+            string pointer,
+            string message)
+        {
+            SarifLog output = RunLocationValidation(new Location { PhysicalLocation = physicalLocation });
+
+            Result result = ResultsFor(output, "GHAzDO1017").Should().ContainSingle().Which;
+            result.Level.Should().Be(FailureLevel.Error);
+            result.Message.Id.Should().Be(messageId);
+            result.Message.Arguments[0].Should().Be(pointer);
+            result.GetMessageText(result.GetRule(output.Runs[0])).Should().Be($"{pointer}: {message}");
+        }
+
+        [Fact]
+        public void GHAzDO1017_WhenLocationsMissing_DoesNotDuplicateResultPropertyError()
+            => AssertMissingResultLocations(null, "Error_MissingLocationsArray");
+
+        [Fact]
+        public void GHAzDO1017_WhenLocationsEmpty_DoesNotDuplicateResultPropertyError()
+            => AssertMissingResultLocations(System.Array.Empty<Location>(), "Error_EmptyLocationsArray");
+
+        private static void AssertMissingResultLocations(IList<Location> locations, string messageId)
+        {
+            SarifLog log = CreateValidGHAzDOSarifLog();
+            log.Runs[0].Results.Add(new Result
+            {
+                RuleId = "RULE001",
+                Message = new Message { Text = "Example finding." },
+                Locations = locations
+            });
+
+            SarifLog output = RunGHAzDOValidation(log);
+
+            output.Runs[0].Results.Should().NotContain(
+                r => r.RuleId.StartsWith("JSON", System.StringComparison.Ordinal));
+            Result result = ResultsFor(output, "GHAzDO1015").Should().ContainSingle().Which;
+            result.Level.Should().Be(FailureLevel.Error);
+            result.Message.Id.Should().Be(messageId);
+            ResultsFor(output, "GHAzDO1017").Should().BeEmpty();
+        }
+
+        [Fact]
+        public void GHAzDO1017_WhenPhysicalLocationHasUri_NoResult()
+            => AssertValidPhysicalLocation("GHAzDO1017", useArtifactIndex: false);
+
+        [Fact]
+        public void GHAzDO1017_WhenPhysicalLocationUsesArtifactIndex_NoResult()
+            => AssertValidPhysicalLocation("GHAzDO1017", useArtifactIndex: true);
+
+        [Fact]
+        public void GHAzDO1017_WhenRegionUsesCharOffset_NoResult()
+            => AssertValidRegion(new Region { CharOffset = 0, CharLength = 4 });
+
+        [Fact]
+        public void GHAzDO1017_WhenRegionUsesByteOffset_NoResult()
+            => AssertValidRegion(new Region { ByteOffset = 0, ByteLength = 4 });
+
+        [Fact]
+        public void GHAzDO1017_WhenMultilineRegionHasSmallerEndColumn_NoResult()
+            => AssertValidRegion(new Region { StartLine = 1, StartColumn = 9, EndLine = 2, EndColumn = 3 });
+
+        private static void AssertValidRegion(Region region)
+        {
+            SarifLog output = RunLocationValidation(new Location
+            {
+                PhysicalLocation = new PhysicalLocation
+                {
+                    ArtifactLocation = new ArtifactLocation { Uri = new System.Uri("src/example.cs", System.UriKind.Relative) },
+                    Region = region
+                }
+            });
+
+            ResultsFor(output, "GHAzDO1017").Should().BeEmpty();
+        }
 
         [Fact]
         public void GHAzDO1019_WhenAllPipelinePropertiesValid_NoResult()

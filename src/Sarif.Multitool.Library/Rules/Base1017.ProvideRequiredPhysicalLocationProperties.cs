@@ -18,12 +18,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingArtifactLocation_Text),
             nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_MissingRegion_Text),
-            nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text),
-            nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_Text),
+            nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_EndColumnMustNotPrecedeStartColumn_Text),
+            nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_EndLineMustNotPrecedeStartLine_Text),
             nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_RegionStartPropertyMustBePresent_Text)
         };
 
-        private ICollection<string> BaseMessageResourceNames => _baseMessageResourceNames;
+        protected ICollection<string> BaseMessageResourceNames => _baseMessageResourceNames;
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>();
 
@@ -62,11 +62,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     string endLinePointer = regionPointer.AtProperty(SarifPropertyName.EndLine);
 
-                    // {0}: In this 'region' object, the 'endLine' property '{1}' is less than the 'startLine'
-                    // property '{2}'. The properties of a 'region' object must be internally consistent.
+                    // {0}: In this 'region' object, the 'endLine' property '{2}' is less than the 'startLine'
+                    // property '{3}'. The properties of a 'region' object must be internally consistent for the {1} service.
                     LogResult(
                         endLinePointer,
-                        nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndLineMustNotPrecedeStartLine_Text),
+                        nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_EndLineMustNotPrecedeStartLine_Text),
                         region.EndLine.ToInvariantString(),
                         region.StartLine.ToInvariantString());
                 }
@@ -77,11 +77,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     string endColumnPointer = regionPointer.AtProperty(SarifPropertyName.EndColumn);
 
-                    // {0}: In this 'region' object, the 'endColumn' property '{1}' is less than the 'startColumn'
-                    // property '{2}'. The properties of a 'region' object must be internally consistent.
+                    // {0}: In this 'region' object, the 'endColumn' property '{2}' is less than the 'startColumn'
+                    // property '{3}'. The properties of a 'region' object must be internally consistent for the {1} service.
                     LogResult(
                         endColumnPointer,
-                        nameof(RuleResources.SARIF1007_RegionPropertiesMustBeConsistent_Error_EndColumnMustNotPrecedeStartColumn_Text),
+                        nameof(RuleResources.Base1017_ProvideRequiredPhysicalLocationProperties_Error_EndColumnMustNotPrecedeStartColumn_Text),
                         region.EndColumn.ToInvariantString(),
                         region.StartColumn.ToInvariantString());
                 }

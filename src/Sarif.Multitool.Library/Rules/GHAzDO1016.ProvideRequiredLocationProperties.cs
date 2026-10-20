@@ -22,6 +22,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override HashSet<RuleKind> RuleKinds => new HashSet<RuleKind>(new[] { RuleKind.GHAzDO });
 
+        protected override string ServiceName => RuleResources.ServiceName_GHAzDO;
+
         public GHAzDOProvideRequiredLocationProperties()
         {
             this.DefaultConfiguration.Level = FailureLevel.Error;

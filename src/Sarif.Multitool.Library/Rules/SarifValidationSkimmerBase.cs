@@ -644,6 +644,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void Visit(Location location, string locationPointer)
         {
+            Analyze(location, locationPointer);
+
             if (location.Message != null)
             {
                 Visit(location.Message, locationPointer.AtProperty(SarifPropertyName.Message));
