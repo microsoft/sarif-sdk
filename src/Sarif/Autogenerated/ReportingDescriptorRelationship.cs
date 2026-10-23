@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -39,25 +39,30 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A reference to the related reporting descriptor.
         /// </summary>
         [DataMember(Name = "target", IsRequired = true)]
+        [Stj.JsonPropertyName("target")]
         public virtual ReportingDescriptorReference Target { get; set; }
 
         /// <summary>
         /// A set of distinct strings that categorize the relationship. Well-known kinds include 'canPrecede', 'canFollow', 'willPrecede', 'willFollow', 'superset', 'subset', 'equal', 'disjoint', 'relevant', and 'incomparable'.
         /// </summary>
         [DataMember(Name = "kinds", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("kinds")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<string> Kinds { get; set; }
 
         /// <summary>
         /// A description of the reporting descriptor relationship.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("description")]
         public virtual Message Description { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the reporting descriptor reference.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

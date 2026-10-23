@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -40,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string containing a valid relative or absolute URI.
         /// </summary>
         [DataMember(Name = "uri", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("uri")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri Uri { get; set; }
 
@@ -47,26 +48,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string which indirectly specifies the absolute URI with respect to which a relative URI in the "uri" property is interpreted.
         /// </summary>
         [DataMember(Name = "uriBaseId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("uriBaseId")]
         public virtual string UriBaseId { get; set; }
 
         /// <summary>
         /// The index within the run artifacts array of the artifact object associated with the artifact location.
         /// </summary>
         [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("index")]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual int Index { get; set; }
 
         /// <summary>
         /// A short description of the artifact location.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("description")]
         public virtual Message Description { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the artifact location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

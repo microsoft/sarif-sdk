@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -40,21 +40,26 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The locations relevant to this notification.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("locations")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Location> Locations { get; set; }
 
         /// <summary>
         /// A message that describes the condition that was encountered.
         /// </summary>
         [DataMember(Name = "message", IsRequired = true)]
+        [Stj.JsonPropertyName("message")]
         public virtual Message Message { get; set; }
 
         /// <summary>
         /// A value specifying the severity level of the notification.
         /// </summary>
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("level")]
         [DefaultValue(FailureLevel.Warning)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public virtual FailureLevel Level { get; set; }
 
@@ -62,12 +67,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The thread identifier of the code that generated the notification.
         /// </summary>
         [DataMember(Name = "threadId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("threadId")]
         public virtual int ThreadId { get; set; }
 
         /// <summary>
         /// The Coordinated Universal Time (UTC) date and time at which the analysis tool generated the notification.
         /// </summary>
         [DataMember(Name = "timeUtc", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("timeUtc")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
         public virtual DateTime TimeUtc { get; set; }
 
@@ -75,24 +82,28 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The runtime exception, if any, relevant to this notification.
         /// </summary>
         [DataMember(Name = "exception", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("exception")]
         public virtual ExceptionData Exception { get; set; }
 
         /// <summary>
         /// A reference used to locate the descriptor relevant to this notification.
         /// </summary>
         [DataMember(Name = "descriptor", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("descriptor")]
         public virtual ReportingDescriptorReference Descriptor { get; set; }
 
         /// <summary>
         /// A reference used to locate the rule descriptor associated with this notification.
         /// </summary>
         [DataMember(Name = "associatedRule", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("associatedRule")]
         public virtual ReportingDescriptorReference AssociatedRule { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the notification.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

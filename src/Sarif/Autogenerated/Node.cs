@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -39,31 +39,37 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string that uniquely identifies the node within its graph.
         /// </summary>
         [DataMember(Name = "id", IsRequired = true)]
+        [Stj.JsonPropertyName("id")]
         public virtual string Id { get; set; }
 
         /// <summary>
         /// A short description of the node.
         /// </summary>
         [DataMember(Name = "label", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("label")]
         public virtual Message Label { get; set; }
 
         /// <summary>
         /// A code location associated with the node.
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("location")]
         public virtual Location Location { get; set; }
 
         /// <summary>
         /// Array of child nodes.
         /// </summary>
         [DataMember(Name = "children", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("children")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Node> Children { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the node.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

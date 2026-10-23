@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -37,18 +37,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The region of the artifact to delete.
         /// </summary>
         [DataMember(Name = "deletedRegion", IsRequired = true)]
+        [Stj.JsonPropertyName("deletedRegion")]
         public virtual Region DeletedRegion { get; set; }
 
         /// <summary>
         /// The content to insert at the location specified by the 'deletedRegion' property.
         /// </summary>
         [DataMember(Name = "insertedContent", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("insertedContent")]
         public virtual ArtifactContent InsertedContent { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the replacement.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
