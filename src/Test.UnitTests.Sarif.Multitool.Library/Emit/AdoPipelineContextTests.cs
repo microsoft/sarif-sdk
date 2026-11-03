@@ -304,6 +304,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         [Fact]
+        public void TryDetect_RepositoryUriFromFailedRun_NormalizesProxyShape()
+        {
+            FakeEnvironmentVariableGetter env = CompleteEnv()
+                .With(AdoPipelineContext.RepositoryUriEnvVar, "https://mseng@dev.azure.com/mseng/AzureDevOps/_git/_full/AzureDevOps")
+                .With(AdoPipelineContext.SourceVersionEnvVar, "0123456789abcdef0123456789abcdef01234567");
+
+            AdoPipelineContext.DetectionState state =
+                AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out _);
+
+            state.Should().Be(AdoPipelineContext.DetectionState.Complete);
+            ctx.RepositoryUri.AbsoluteUri.Should().Be("https://dev.azure.com/mseng/AzureDevOps/_git/AzureDevOps");
+            ctx.RepositoryUri.UserInfo.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void TryDetect_RepositoryUriWithUnknownExtraSegment_RemainsUnchanged()
+        {
+            const string unknownUri = "https://dev.azure.com/mseng/AzureDevOps/_git/_mirror/AzureDevOps";
+            FakeEnvironmentVariableGetter env = CompleteEnv()
+                .With(AdoPipelineContext.RepositoryUriEnvVar, unknownUri);
+
+            AdoPipelineContext.DetectionState state =
+                AdoPipelineContext.TryDetect(env, out AdoPipelineContext ctx, out _);
+
+            state.Should().Be(AdoPipelineContext.DetectionState.Complete);
+            ctx.RepositoryUri.AbsoluteUri.Should().Be(unknownUri);
+        }
+
+        [Fact]
         public void TryDetect_RepositoryUriMalformed_ReturnsPartial()
         {
             // Optional env vars don't go silent when malformed — a broken BUILD_REPOSITORY_URI
