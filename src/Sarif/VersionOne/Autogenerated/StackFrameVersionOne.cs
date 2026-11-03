@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,78 +35,91 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// A message relevant to this stack frame.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("message")]
         public string Message { get; set; }
 
         /// <summary>
         /// The uri of the source code file to which this stack frame refers.
         /// </summary>
         [DataMember(Name = "uri", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("uri")]
         public Uri Uri { get; set; }
 
         /// <summary>
         /// A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.
         /// </summary>
         [DataMember(Name = "uriBaseId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("uriBaseId")]
         public string UriBaseId { get; set; }
 
         /// <summary>
         /// The line of the location to which this stack frame refers.
         /// </summary>
         [DataMember(Name = "line", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("line")]
         public int Line { get; set; }
 
         /// <summary>
         /// The line of the location to which this stack frame refers.
         /// </summary>
         [DataMember(Name = "column", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("column")]
         public int Column { get; set; }
 
         /// <summary>
         /// The name of the module that contains the code of this stack frame.
         /// </summary>
         [DataMember(Name = "module", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("module")]
         public string Module { get; set; }
 
         /// <summary>
         /// The thread identifier of the stack frame.
         /// </summary>
         [DataMember(Name = "threadId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("threadId")]
         public int ThreadId { get; set; }
 
         /// <summary>
         /// The fully qualified name of the method or function that is executing.
         /// </summary>
         [DataMember(Name = "fullyQualifiedLogicalName", IsRequired = true)]
+        [Stj.JsonPropertyName("fullyQualifiedLogicalName")]
         public string FullyQualifiedLogicalName { get; set; }
 
         /// <summary>
         /// A key used to retrieve the stack frame logicalLocation from the logicalLocations dictionary, when the 'fullyQualifiedLogicalName' is not unique.
         /// </summary>
         [DataMember(Name = "logicalLocationKey", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("logicalLocationKey")]
         public string LogicalLocationKey { get; set; }
 
         /// <summary>
         /// The address of the method or function that is executing.
         /// </summary>
         [DataMember(Name = "address", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("address")]
         public int Address { get; set; }
 
         /// <summary>
         /// The offset from the method or function that is executing.
         /// </summary>
         [DataMember(Name = "offset", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("offset")]
         public int Offset { get; set; }
 
         /// <summary>
         /// The parameters of the call that is executing.
         /// </summary>
         [DataMember(Name = "parameters", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("parameters")]
         public IList<string> Parameters { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the stack frame.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

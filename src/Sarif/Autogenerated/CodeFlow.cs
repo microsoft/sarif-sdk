@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -37,18 +37,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A message relevant to the code flow.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("message")]
         public virtual Message Message { get; set; }
 
         /// <summary>
         /// An array of one or more unique threadFlow objects, each of which describes the progress of a program through a thread of execution.
         /// </summary>
         [DataMember(Name = "threadFlows", IsRequired = true)]
+        [Stj.JsonPropertyName("threadFlows")]
         public virtual IList<ThreadFlow> ThreadFlows { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the code flow.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

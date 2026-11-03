@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -37,18 +37,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A plain text message string or format string.
         /// </summary>
         [DataMember(Name = "text", IsRequired = true)]
+        [Stj.JsonPropertyName("text")]
         public virtual string Text { get; set; }
 
         /// <summary>
         /// A Markdown message string or format string.
         /// </summary>
         [DataMember(Name = "markdown", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("markdown")]
         public virtual string Markdown { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the message.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

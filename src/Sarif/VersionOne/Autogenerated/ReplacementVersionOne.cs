@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,18 +35,21 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// A non-negative integer specifying the offset in bytes from the beginning of the file at which bytes are to be removed, inserted or both. An offset of 0 shall denote the first byte in the file.
         /// </summary>
         [DataMember(Name = "offset", IsRequired = true)]
+        [Stj.JsonPropertyName("offset")]
         public int Offset { get; set; }
 
         /// <summary>
         /// The number of bytes to delete, starting at the byte offset specified by offset, measured from the beginning of the file.
         /// </summary>
         [DataMember(Name = "deletedLength", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("deletedLength")]
         public int DeletedLength { get; set; }
 
         /// <summary>
         /// The MIME Base64-encoded byte sequence to be inserted at the byte offset specified by the 'offset' property, measured from the beginning of the file.
         /// </summary>
         [DataMember(Name = "insertedBytes", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("insertedBytes")]
         public string InsertedBytes { get; set; }
 
         /// <summary>

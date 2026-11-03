@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -39,32 +39,39 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A message describing the role played by the attachment.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("description")]
         public virtual Message Description { get; set; }
 
         /// <summary>
         /// The location of the attachment.
         /// </summary>
         [DataMember(Name = "artifactLocation", IsRequired = true)]
+        [Stj.JsonPropertyName("artifactLocation")]
         public virtual ArtifactLocation ArtifactLocation { get; set; }
 
         /// <summary>
         /// An array of regions of interest within the attachment.
         /// </summary>
         [DataMember(Name = "regions", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("regions")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Region> Regions { get; set; }
 
         /// <summary>
         /// An array of rectangles specifying areas of interest within the image.
         /// </summary>
         [DataMember(Name = "rectangles", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("rectangles")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Rectangle> Rectangles { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the attachment.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -39,31 +39,37 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A plain text message string.
         /// </summary>
         [DataMember(Name = "text", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("text")]
         public virtual string Text { get; set; }
 
         /// <summary>
         /// A Markdown message string.
         /// </summary>
         [DataMember(Name = "markdown", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("markdown")]
         public virtual string Markdown { get; set; }
 
         /// <summary>
         /// The identifier for this message.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("id")]
         public virtual string Id { get; set; }
 
         /// <summary>
         /// An array of strings to substitute into the message string.
         /// </summary>
         [DataMember(Name = "arguments", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("arguments")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<string> Arguments { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the message.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
@@ -39,12 +39,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The URI of the JSON schema corresponding to the version of the external property file format.
         /// </summary>
         [DataMember(Name = "schema", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("schema")]
         public virtual Uri Schema { get; set; }
 
         /// <summary>
         /// The SARIF format version of this external properties object.
         /// </summary>
         [DataMember(Name = "version", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("version")]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.SarifVersionConverter))]
         public virtual SarifVersion Version { get; set; }
 
@@ -52,126 +54,157 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A stable, unique identifier for this external properties object, in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("guid")]
         public virtual Guid? Guid { get; set; }
 
         /// <summary>
         /// A stable, unique identifier for the run associated with this external properties object, in the form of a GUID.
         /// </summary>
         [DataMember(Name = "runGuid", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("runGuid")]
         public virtual Guid? RunGuid { get; set; }
 
         /// <summary>
         /// A conversion object that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "conversion", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("conversion")]
         public virtual Conversion Conversion { get; set; }
 
         /// <summary>
         /// An array of graph objects that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("graphs")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Graph> Graphs { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "externalizedProperties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("externalizedProperties")]
         public virtual PropertyBag ExternalizedProperties { get; set; }
 
         /// <summary>
         /// An array of artifact objects that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "artifacts", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("artifacts")]
         public virtual IList<Artifact> Artifacts { get; set; }
 
         /// <summary>
         /// Describes the invocation of the analysis tool that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "invocations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("invocations")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Invocation> Invocations { get; set; }
 
         /// <summary>
         /// An array of logical locations such as namespaces, types or functions that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("logicalLocations")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<LogicalLocation> LogicalLocations { get; set; }
 
         /// <summary>
         /// An array of threadFlowLocation objects that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "threadFlowLocations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("threadFlowLocations")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<ThreadFlowLocation> ThreadFlowLocations { get; set; }
 
         /// <summary>
         /// An array of result objects that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("results")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Result> Results { get; set; }
 
         /// <summary>
         /// Tool taxonomies that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "taxonomies", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("taxonomies")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<ToolComponent> Taxonomies { get; set; }
 
         /// <summary>
         /// The analysis tool object that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "driver", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("driver")]
         public virtual ToolComponent Driver { get; set; }
 
         /// <summary>
         /// Tool extensions that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "extensions", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("extensions")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<ToolComponent> Extensions { get; set; }
 
         /// <summary>
         /// Tool policies that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "policies", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("policies")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<ToolComponent> Policies { get; set; }
 
         /// <summary>
         /// Tool translations that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "translations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("translations")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<ToolComponent> Translations { get; set; }
 
         /// <summary>
         /// Addresses that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "addresses", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("addresses")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<Address> Addresses { get; set; }
 
         /// <summary>
         /// Requests that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "webRequests", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("webRequests")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<WebRequest> WebRequests { get; set; }
 
         /// <summary>
         /// Responses that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "webResponses", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("webResponses")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Stj.JsonIgnore(Condition = Stj.JsonIgnoreCondition.WhenWritingDefault)]
         public virtual IList<WebResponse> WebResponses { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the external properties.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>

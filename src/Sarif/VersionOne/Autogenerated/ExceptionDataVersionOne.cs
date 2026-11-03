@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     [DataContract]
@@ -32,24 +32,28 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// A string that identifies the kind of exception, for example, the fully qualified type name of an object that was thrown, or the symbolic name of a signal.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("kind")]
         public string Kind { get; set; }
 
         /// <summary>
         /// A string that describes the exception.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("message")]
         public string Message { get; set; }
 
         /// <summary>
         /// The sequence of function calls leading to the exception.
         /// </summary>
         [DataMember(Name = "stack", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("stack")]
         public StackVersionOne Stack { get; set; }
 
         /// <summary>
         /// An array of exception objects each of which is considered a cause of this exception.
         /// </summary>
         [DataMember(Name = "innerExceptions", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("innerExceptions")]
         public IList<ExceptionDataVersionOne> InnerExceptions { get; set; }
 
         /// <summary>

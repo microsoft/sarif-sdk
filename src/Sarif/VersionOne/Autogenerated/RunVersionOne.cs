@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
+using Stj = System.Text.Json.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 {
     /// <summary>
@@ -35,84 +35,98 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// Information about the tool or tool pipeline that generated the results in this run. A run can only contain results produced by a single tool or tool pipeline. A run can aggregate results from multiple log files, as long as context around the tool run (tool command-line arguments and the like) is identical for all aggregated files.
         /// </summary>
         [DataMember(Name = "tool", IsRequired = true)]
+        [Stj.JsonPropertyName("tool")]
         public ToolVersionOne Tool { get; set; }
 
         /// <summary>
         /// Describes the runtime environment, including parameterization, of the analysis tool run.
         /// </summary>
         [DataMember(Name = "invocation", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("invocation")]
         public InvocationVersionOne Invocation { get; set; }
 
         /// <summary>
         /// A dictionary, each of whose keys is a URI and each of whose values is an array of file objects representing the location of a single file scanned during the run.
         /// </summary>
         [DataMember(Name = "files", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("files")]
         public IDictionary<string, FileDataVersionOne> Files { get; set; }
 
         /// <summary>
         /// A dictionary, each of whose keys specifies a logical location such as a namespace, type or function.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("logicalLocations")]
         public IDictionary<string, LogicalLocationVersionOne> LogicalLocations { get; set; }
 
         /// <summary>
         /// The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.
         /// </summary>
         [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("results")]
         public IList<ResultVersionOne> Results { get; set; }
 
         /// <summary>
         /// A list of runtime conditions detected by the tool in the course of the analysis.
         /// </summary>
         [DataMember(Name = "toolNotifications", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("toolNotifications")]
         public IList<NotificationVersionOne> ToolNotifications { get; set; }
 
         /// <summary>
         /// A list of conditions detected by the tool that are relevant to the tool's configuration.
         /// </summary>
         [DataMember(Name = "configurationNotifications", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("configurationNotifications")]
         public IList<NotificationVersionOne> ConfigurationNotifications { get; set; }
 
         /// <summary>
         /// A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.
         /// </summary>
         [DataMember(Name = "rules", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("rules")]
         public IDictionary<string, RuleVersionOne> Rules { get; set; }
 
         /// <summary>
         /// An identifier for the run.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("id")]
         public string Id { get; set; }
 
         /// <summary>
         /// A stable identifier for a run, for example, 'nightly Clang analyzer run'. Multiple runs of the same type can have the same stableId.
         /// </summary>
         [DataMember(Name = "stableId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("stableId")]
         public string StableId { get; set; }
 
         /// <summary>
         /// A global identifier that allows the run to be correlated with other artifacts produced by a larger automation process.
         /// </summary>
         [DataMember(Name = "automationId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("automationId")]
         public string AutomationId { get; set; }
 
         /// <summary>
         /// The 'id' property of a separate (potentially external) SARIF 'run' instance that comprises the baseline that was used to compute result 'baselineState' properties for the run.
         /// </summary>
         [DataMember(Name = "baselineId", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("baselineId")]
         public string BaselineId { get; set; }
 
         /// <summary>
         /// The hardware architecture for which the run was targeted.
         /// </summary>
         [DataMember(Name = "architecture", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("architecture")]
         public string Architecture { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the run.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Stj.JsonPropertyName("properties")]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
