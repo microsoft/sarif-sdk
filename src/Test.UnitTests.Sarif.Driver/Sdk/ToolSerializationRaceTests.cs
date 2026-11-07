@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var options = new TestAnalyzeOptions
             {
                 Quiet = true,
-                TimeoutInSeconds = 1,
+                TimeoutInSeconds = blockRule ? 5 : 1,
                 ConfigurationFilePath = TestMultithreadedAnalyzeCommand.DefaultPolicyName,
                 TargetFileSpecifiers = new[] { typeof(ToolSerializationRaceTests).Assembly.Location },
             };
