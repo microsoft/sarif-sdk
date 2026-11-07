@@ -6,8 +6,6 @@ using System.IO;
 
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
-using Newtonsoft.Json;
-
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>
@@ -50,17 +48,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (FileStream input = File.OpenRead(inputFileName))
             using (FileStream outputTextStream = File.Create(outputFileName))
             using (var outputTextWriter = new StreamWriter(outputTextStream))
-            using (var outputJson = new JsonTextWriter(outputTextWriter))
+            using (var output = new ResultLogWriter(
+                outputTextWriter,
+                indented: logFilePersistenceOptions.HasFlag(FilePersistenceOptions.PrettyPrint)))
             {
-                if (logFilePersistenceOptions.HasFlag(FilePersistenceOptions.PrettyPrint))
-                {
-                    outputJson.Formatting = Formatting.Indented;
-                }
-
-                using (var output = new ResultLogJsonWriter(outputJson))
-                {
-                    ConvertToStandardFormat(toolFormat, input, output, dataToInsert, pluginAssemblyPath);
-                }
+                ConvertToStandardFormat(toolFormat, input, output, dataToInsert, pluginAssemblyPath);
             }
         }
 

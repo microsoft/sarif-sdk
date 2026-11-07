@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         /// <summary>Initializes a new instance of the <see cref="ResultLogJsonWriter"/> class.</summary>
         /// <param name="jsonWriter">The JSON writer. This class does not take ownership of the JSON
-        /// writer; the caller is responsible for destroying it.</param>
+        /// writer; the caller is responsible for disposing it.</param>
         public ResultLogJsonWriter(JsonWriter jsonWriter)
         {
             _jsonWriter = jsonWriter;
