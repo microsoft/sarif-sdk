@@ -5,8 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 
 using FluentAssertions;
 
@@ -582,7 +585,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 validateOptions.ConfigurationFilePath = configFile.Name;
                 mockFileSystem.Setup(x => x.FileExists(validateOptions.ConfigurationFilePath)).Returns(true);
 
-                var validateCommand = new ValidateCommand(mockFileSystem.Object);
+                ValidateCommand validateCommand = ruleUnderTest == RuleId.UrisShouldBeReachable
+                    ? new TestValidateCommand(
+                        mockFileSystem.Object,
+                        CreateMockHttpClient(inputLogFileName.EndsWith(ValidTestFileNameSuffix, StringComparison.Ordinal)))
+                    : new ValidateCommand(mockFileSystem.Object);
 
                 var context = new SarifValidationContext
                 {
@@ -699,6 +706,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     validationRuleAssembly
                 }).ToList();
+        }
+
+        private static IHttpClient CreateMockHttpClient(bool reachable)
+        {
+            var mockHttpClient = new Mock<IHttpClient>();
+            mockHttpClient
+                .Setup(client => client.GetAsync(It.IsAny<string>()))
+                .Returns<string>(_ => Task.FromResult(new HttpResponseMessage(
+                    reachable ? HttpStatusCode.OK : HttpStatusCode.NotFound)));
+
+            return mockHttpClient.Object;
+        }
+
+        private sealed class TestValidateCommand : ValidateCommand
+        {
+            private readonly IHttpClient _httpClient;
+
+            public TestValidateCommand(IFileSystem fileSystem, IHttpClient httpClient)
+                : base(fileSystem)
+            {
+                _httpClient = httpClient;
+            }
+
+            public override IEnumerable<Assembly> DefaultPluginAssemblies
+                => new[] { typeof(RuleIdentifiersMustBeValid).Assembly };
+
+            protected override ISet<Skimmer<SarifValidationContext>> CreateSkimmers(SarifValidationContext context)
+            {
+                ISet<Skimmer<SarifValidationContext>> skimmers = base.CreateSkimmers(context);
+
+                foreach (UrisShouldBeReachable rule in skimmers.OfType<UrisShouldBeReachable>())
+                {
+                    rule.httpProvider = _httpClient;
+                }
+
+                return skimmers;
+            }
         }
 
         private static bool IsRelevant(string ruleId, string ruleUnderTest)
