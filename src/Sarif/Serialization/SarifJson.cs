@@ -109,31 +109,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Serialization
                 throw new ArgumentNullException(nameof(objectType));
             }
 
-            JToken token;
-            using (var jsonReader = new JsonTextReader(textReader) { CloseInput = false })
-            {
-                try
-                {
-                    token = JToken.ReadFrom(jsonReader);
-                    while (jsonReader.Read())
-                    {
-                        if (jsonReader.TokenType != JsonToken.Comment)
-                        {
-                            throw new JsonReaderException(
-                                "Additional text encountered after finished reading JSON content.");
-                        }
-                    }
-                }
-                catch (JsonReaderException ex)
-                {
-                    throw CreateReaderException(ex);
-                }
-            }
+            string json = textReader.ReadToEnd();
+            ValidateJson(json);
 
             try
             {
                 JsonSerializer serializer = CreateSerializer(options);
-                return token.ToObject(objectType, serializer);
+                using (var stringReader = new StringReader(json))
+                using (var jsonReader = new JsonTextReader(stringReader)
+                {
+                    DateParseHandling = DateParseHandling.None
+                })
+                {
+                    return serializer.Deserialize(jsonReader, objectType);
+                }
             }
             catch (JsonException ex)
             {
@@ -238,6 +227,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Serialization
             }
 
             return JsonSerializer.Create(settings);
+        }
+
+        private static void ValidateJson(string json)
+        {
+            using (var stringReader = new StringReader(json))
+            using (var jsonReader = new JsonTextReader(stringReader)
+            {
+                DateParseHandling = DateParseHandling.None
+            })
+            {
+                try
+                {
+                    JToken.ReadFrom(jsonReader);
+                    while (jsonReader.Read())
+                    {
+                        if (jsonReader.TokenType != JsonToken.Comment)
+                        {
+                            throw new JsonReaderException(
+                                "Additional text encountered after finished reading JSON content.");
+                        }
+                    }
+                }
+                catch (JsonReaderException ex)
+                {
+                    throw CreateReaderException(ex);
+                }
+            }
         }
 
         private static SarifJsonReaderException CreateReaderException(JsonReaderException ex)

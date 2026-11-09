@@ -42,8 +42,60 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             else
             {
-                writer.WriteRawValue(spi.SerializedValue);
+                if (writer.StringEscapeHandling == StringEscapeHandling.Default)
+                {
+                    writer.WriteRawValue(spi.SerializedValue);
+                }
+                else
+                {
+                    writer.WriteRawValue(
+                        EscapeStrings(spi.SerializedValue, writer.StringEscapeHandling));
+                }
             }
+        }
+
+        private static string EscapeStrings(
+            string serializedValue,
+            StringEscapeHandling stringEscapeHandling)
+        {
+            var builder = new StringBuilder(serializedValue.Length);
+
+            for (int index = 0; index < serializedValue.Length; index++)
+            {
+                if (serializedValue[index] != '"')
+                {
+                    builder.Append(serializedValue[index]);
+                    continue;
+                }
+
+                int startIndex = index;
+                do
+                {
+                    index = serializedValue.IndexOf('"', index + 1);
+                    if (index < 0)
+                    {
+                        throw new JsonReaderException("Unterminated string in serialized property value.");
+                    }
+                }
+                while (IsEscaped(serializedValue, index));
+
+                string jsonString = serializedValue.Substring(startIndex, index - startIndex + 1);
+                string value = JsonConvert.DeserializeObject<string>(jsonString);
+                builder.Append(JsonConvert.ToString(value, '"', stringEscapeHandling));
+            }
+
+            return builder.ToString();
+        }
+
+        private static bool IsEscaped(string value, int quoteIndex)
+        {
+            int precedingBackslashCount = 0;
+            for (int index = quoteIndex - 1; index >= 0 && value[index] == '\\'; index--)
+            {
+                precedingBackslashCount++;
+            }
+
+            return precedingBackslashCount % 2 != 0;
         }
 
         public override bool CanConvert(Type objectType)

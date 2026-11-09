@@ -58,6 +58,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        public void SarifJson_PreservesIso8601PropertyBagStrings()
+        {
+            const string timestamp = "2026-11-09T12:34:56.7890123Z";
+            string json =
+                "{\"version\":\"2.1.0\",\"runs\":[{\"tool\":{\"driver\":{\"name\":\"Test\"}},\"results\":[{\"message\":{\"text\":\"Test\"},\"properties\":{\"timestamp\":\"" +
+                timestamp +
+                "\"}}]}]}";
+
+            SarifLog log = SarifJson.Deserialize<SarifLog>(json);
+
+            log.Runs[0].Results[0].GetProperty("timestamp").Should().Be(timestamp);
+        }
+
+        [Fact]
+        public void SarifJson_PreservesHighPrecisionDecimalValues()
+        {
+            const decimal expected = 0.1234567890123456789012345678m;
+
+            decimal actual = SarifJson.Deserialize<decimal>(
+                "0.1234567890123456789012345678");
+
+            actual.Should().Be(expected);
+        }
+
+        [Fact]
         public void SarifJson_MapsUnmappableJsonToSerializationException()
         {
             Action action = () => SarifJson.Deserialize<MappingContainer>("{\"Number\":\"not a number\"}");
@@ -105,6 +130,28 @@ namespace Microsoft.CodeAnalysis.Sarif
             json.Should().Contain(Environment.NewLine);
             json.Should().Contain(@"\u003c");
             json.Should().NotContain("Optional");
+        }
+
+        [Fact]
+        public void SarifJson_EscapesHtmlInSarifPropertyBagValues()
+        {
+            var result = new Result
+            {
+                Message = new Message { Text = "Test" }
+            };
+            result.SetProperty("payload", new
+            {
+                Value = "</script>",
+                Number = 0.1234567890123456789012345678m
+            });
+
+            string json = SarifJson.Serialize(
+                result,
+                new SarifJsonOptions { EscapeHtml = true });
+
+            json.Should().NotContain("</script>");
+            json.Should().Contain(@"\u003c/script\u003e");
+            json.Should().Contain("0.1234567890123456789012345678");
         }
 
         [Fact]
