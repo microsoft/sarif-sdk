@@ -47,6 +47,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
+        public void ResultLogWriter_AcceptsTextWriter()
+        {
+            string expected = CreateCurrentV2SarifLogText(resultCount: 1);
+            var actual = new StringWriter();
+
+            using (var uut = new ResultLogWriter(actual))
+            {
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
+                uut.WriteResult(DefaultResult);
+            }
+
+            actual.ToString().Should().BeCrossPlatformEquivalent<SarifLog>(expected);
+            actual.Write("still open");
+        }
+
+        [Fact]
+        public void ResultLogWriter_SupportsIndentedJson()
+        {
+            var actual = new StringWriter();
+
+            using (var uut = new ResultLogWriter(actual, indented: true))
+            {
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
+                uut.WriteResult(DefaultResult);
+            }
+
+            actual.ToString().Should().Contain(Environment.NewLine);
+        }
+
+        [Fact]
         public void ResultLogJsonWriter_DoNotInitializeMoreThanOnce()
         {
             Assert.Throws<InvalidOperationException>(() =>

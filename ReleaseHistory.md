@@ -14,6 +14,7 @@ Each release entry below is prefixed with one of:
 Entries are terse by design: one line per change, present-tense behavior, complete but only essential data. No issue/PR archaeology or narrative — that history lives in the engineering system.
 
 ## UNRELEASED
+* NEW: `SarifJson` and `ResultLogWriter` expose SARIF serialization, errors, prerelease conversion, and streaming without requiring callers to reference Newtonsoft.Json types.
 * BUG: `GHAzDO1016.ProvideRequiredLocationProperties` and `GH1016.ProvideRequiredLocationProperties` report locations missing `physicalLocation` during validation.
 * BUG: `GHAzDO1017.ProvideRequiredPhysicalLocationProperties` enforces required `artifactLocation` and `region` properties and region consistency checks.
 
