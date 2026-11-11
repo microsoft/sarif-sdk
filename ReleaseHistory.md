@@ -17,6 +17,8 @@ Entries are terse by design: one line per change, present-tense behavior, comple
 * NEW: `SarifJson` and `ResultLogWriter` expose SARIF serialization, errors, prerelease conversion, and streaming without requiring callers to reference Newtonsoft.Json types.
 * BUG: `GHAzDO1016.ProvideRequiredLocationProperties` and `GH1016.ProvideRequiredLocationProperties` report locations missing `physicalLocation` during validation.
 * BUG: `GHAzDO1017.ProvideRequiredPhysicalLocationProperties` enforces required `artifactLocation` and `region` properties and region consistency checks.
+* BUG: `ValidateCommand` loads the built-in SARIF schema when called through a derived command.
+* DEP: `@microsoft/sarif-multitool-ts` uses `fast-uri` 3.1.9.
 
 ## **v5.8.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/v5.8.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/v5.8.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/v5.8.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/v5.8.0) | [Multitool Library](https://www.nuget.org/packages/Sarif.Multitool.Library/v5.8.0)
 * NEW: `GHAzDO1021.ProvideValidVersionControlProvenance` rejects a blank primary branch or revision and the 40-character all-zero Git revision sentinel.

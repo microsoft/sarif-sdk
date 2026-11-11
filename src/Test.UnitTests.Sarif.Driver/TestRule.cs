@@ -25,6 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         internal static int s_seed = (int)DateTime.UtcNow.Ticks;
         internal static Random s_random = new Random(s_seed);
+        private static readonly object s_randomLock = new object();
 
         [ThreadStatic]
         internal static TestRuleBehaviors s_testRuleBehaviors;
@@ -199,7 +200,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 }
                             });
 
-                        Thread.Sleep(s_random.Next(0, 10));
+                        int randomDelay;
+                        lock (s_randomLock)
+                        {
+                            randomDelay = s_random.Next(0, 10);
+                        }
+                        Thread.Sleep(randomDelay);
                     }
                     break;
                 }
