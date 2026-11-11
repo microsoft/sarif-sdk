@@ -429,8 +429,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         /// <summary>
-        /// Suspends analysis until <see cref="OpenGate"/> is called, letting a test observe the
-        /// pipeline while a scan is in flight.
+        /// Holds the asynchronous analysis path open until <see cref="OpenGate"/> is called.
         /// </summary>
         private sealed class GatedAnalyzeCommand : TestMultithreadedAnalyzeCommand
         {
@@ -453,7 +452,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 AnalysisStarted.TrySetResult(true);
                 await this.gate.Task;
-                await base.AnalyzeTargetsAsync(context, skimmers);
             }
         }
 
