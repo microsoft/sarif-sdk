@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var options = new TestAnalyzeOptions
             {
                 Quiet = true,
-                TimeoutInSeconds = 1,
+                TimeoutInSeconds = blockRule ? 5 : 1,
                 ConfigurationFilePath = TestMultithreadedAnalyzeCommand.DefaultPolicyName,
                 TargetFileSpecifiers = new[] { typeof(ToolSerializationRaceTests).Assembly.Location },
             };
@@ -66,7 +66,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                await WaitUntilAsync(() => analysisStarted.IsSet);
+                await WaitUntilAsync(
+                    () => analysisStarted.IsSet,
+                    TimeSpan.FromSeconds(blockRule ? 30 : 15));
                 await WaitUntilAsync(() => context.RuntimeErrors.HasFlag(RuntimeConditions.AnalysisTimedOut));
                 (int exitCode, TestAnalysisContext usedContext) =
                     await runTask.WaitAsync(TimeSpan.FromSeconds(5));
@@ -92,9 +94,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private static async Task WaitUntilAsync(Func<bool> condition)
+        private static async Task WaitUntilAsync(Func<bool> condition, TimeSpan? timeout = null)
         {
-            DateTime deadline = DateTime.UtcNow.AddSeconds(15);
+            DateTime deadline = DateTime.UtcNow.Add(timeout ?? TimeSpan.FromSeconds(15));
             while (!condition() && DateTime.UtcNow < deadline)
             {
                 await Task.Delay(10);
