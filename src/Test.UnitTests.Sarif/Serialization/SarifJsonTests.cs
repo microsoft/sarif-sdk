@@ -41,6 +41,59 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        public void SarifJson_DeserializesLeadingLineComment()
+        {
+            AssertDeserializesCommentedJson("// comment\n{\"Number\":42}");
+        }
+
+        [Fact]
+        public void SarifJson_DeserializesLeadingBlockComment()
+        {
+            AssertDeserializesCommentedJson("/* comment */{\"Number\":42}");
+        }
+
+        [Fact]
+        public void SarifJson_DeserializesMixedCommentsAndUnicodeWhitespace()
+        {
+            AssertDeserializesCommentedJson(
+                "\u00a0\u2003 /* first */\r\n// second\r\n\t/* third */\u2003" +
+                "{/* member */'Number':42,}\u00a0/* trailing */ // last");
+        }
+
+        [Fact]
+        public void SarifJson_PreservesCommentOnlyInputBehavior()
+        {
+            MappingContainer value = SarifJson.Deserialize<MappingContainer>(
+                "// comment\n /* comment */");
+
+            value.Should().BeNull();
+        }
+
+        [Fact]
+        public void SarifJson_RejectsMalformedJsonAfterLeadingComment()
+        {
+            SarifJsonReaderException error = AssertRejectsCommentedJson(
+                "// comment\n{\"Number\": }");
+
+            error.Path.Should().Be("Number");
+            error.LineNumber.Should().Be(2);
+            error.LinePosition.Should().BeGreaterThan(0);
+        }
+
+        [Fact]
+        public void SarifJson_RejectsAdditionalJsonContentAfterLeadingComment()
+        {
+            AssertRejectsCommentedJson(
+                "/* leading */{\"Number\":42}/* between */{\"Number\":1}");
+        }
+
+        [Fact]
+        public void SarifJson_RejectsUnterminatedLeadingComment()
+        {
+            AssertRejectsCommentedJson("/* unterminated");
+        }
+
+        [Fact]
         public void SarifJson_MapsMalformedJsonToReaderException()
         {
             Action action = () => SarifJson.Deserialize<SarifLog>("{");
@@ -92,26 +145,29 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        public void SarifJson_MapsUnmappableJsonAfterLeadingCommentToSerializationException()
+        {
+            Action action = () => SarifJson.Deserialize<MappingContainer>(
+                "// comment\n{\"Number\":\"not a number\"}");
+
+            SarifJsonSerializationException error = action.Should()
+                .Throw<SarifJsonSerializationException>().Which;
+
+            error.Path.Should().Be("Number");
+            error.InnerException.Should().NotBeNull();
+        }
+
+        [Fact]
         public void SarifJson_HandledErrorCallbackContinuesDeserialization()
         {
-            SarifJsonErrorEventArgs observedError = null;
-            var options = new SarifJsonOptions
-            {
-                Error = error =>
-                {
-                    observedError = error;
-                    error.Handled = true;
-                }
-            };
+            AssertHandledErrorCallbackContinuesDeserialization("{\"Number\":\"not a number\"}");
+        }
 
-            MappingContainer value = SarifJson.Deserialize<MappingContainer>(
-                "{\"Number\":\"not a number\"}",
-                options);
-
-            value.Should().NotBeNull();
-            value.Number.Should().Be(0);
-            observedError.Should().NotBeNull();
-            observedError.Path.Should().Be("Number");
+        [Fact]
+        public void SarifJson_HandledErrorCallbackContinuesAfterLeadingComment()
+        {
+            AssertHandledErrorCallbackContinuesDeserialization(
+                "// comment\n{\"Number\":\"not a number\"}");
         }
 
         [Fact]
@@ -238,6 +294,57 @@ namespace Microsoft.CodeAnalysis.Sarif
                         $"{type.FullName}.{member.Name} is part of the serializer-neutral API");
                 }
             }
+        }
+
+        private static void AssertHandledErrorCallbackContinuesDeserialization(string json)
+        {
+            SarifJsonErrorEventArgs observedError = null;
+            var options = new SarifJsonOptions
+            {
+                Error = error =>
+                {
+                    observedError = error;
+                    error.Handled = true;
+                }
+            };
+
+            MappingContainer value = SarifJson.Deserialize<MappingContainer>(
+                json,
+                options);
+
+            value.Should().NotBeNull();
+            value.Number.Should().Be(0);
+            observedError.Should().NotBeNull();
+            observedError.Path.Should().Be("Number");
+        }
+
+        private static void AssertDeserializesCommentedJson(string json)
+        {
+            MappingContainer expected = Newtonsoft.Json.JsonConvert.DeserializeObject<MappingContainer>(json);
+            MappingContainer actual = SarifJson.Deserialize<MappingContainer>(json);
+
+            actual.Should().BeEquivalentTo(expected);
+            actual.Number.Should().Be(42);
+        }
+
+        private static SarifJsonReaderException AssertRejectsCommentedJson(string json)
+        {
+            int callbackCount = 0;
+            var options = new SarifJsonOptions
+            {
+                Error = error =>
+                {
+                    callbackCount++;
+                    error.Handled = true;
+                }
+            };
+            Action action = () => SarifJson.Deserialize<MappingContainer>(json, options);
+
+            SarifJsonReaderException exception = action.Should().Throw<SarifJsonReaderException>().Which;
+
+            exception.InnerException.Should().NotBeNull();
+            callbackCount.Should().Be(0);
+            return exception;
         }
 
         private sealed class UriContainer
