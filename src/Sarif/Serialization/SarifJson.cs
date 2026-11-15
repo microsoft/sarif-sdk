@@ -239,7 +239,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Serialization
             {
                 try
                 {
-                    JToken.ReadFrom(jsonReader);
+                    JToken token = JToken.ReadFrom(jsonReader);
+                    while (token.Type == JTokenType.Comment && jsonReader.Read())
+                    {
+                        token = JToken.ReadFrom(jsonReader);
+                    }
+
                     while (jsonReader.Read())
                     {
                         if (jsonReader.TokenType != JsonToken.Comment)
