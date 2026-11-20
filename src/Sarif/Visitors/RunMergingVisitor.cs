@@ -31,6 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private List<LogicalLocation> LogicalLocations { get; }
         private List<ReportingDescriptor> Rules { get; }
         private List<Invocation> Invocations { get; }
+        private HashSet<Result> SeenResults { get; }
 
         private Dictionary<string, int> RuleIdToIndex { get; }
         private Dictionary<OrderSensitiveValueComparisonList<LogicalLocation>, int> LogicalLocationToIndex { get; }
@@ -38,6 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private Dictionary<Run, int> InvocationBaseIndexByRun { get; }
 
         public Run CurrentRun { get; set; }
+        public bool DeduplicateResults { get; set; }
 
         public RunMergingVisitor()
         {
@@ -46,6 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             LogicalLocations = new List<LogicalLocation>();
             Rules = new List<ReportingDescriptor>();
             Invocations = new List<Invocation>();
+            SeenResults = new HashSet<Result>(Result.ValueComparer);
 
             RuleIdToIndex = new Dictionary<string, int>();
             LogicalLocationToIndex = new Dictionary<OrderSensitiveValueComparisonList<LogicalLocation>, int>();
@@ -117,7 +120,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             RemapInvocationIndex(node);
 
             Result result = base.VisitResult(node);
-            Results.Add(result);
+            if (!DeduplicateResults || SeenResults.Add(result))
+            {
+                Results.Add(result);
+            }
             return result;
         }
 
