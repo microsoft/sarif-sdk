@@ -639,8 +639,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
             }
 
-            value = parsed;
+            value = NormalizeAzureDevOpsRepositoryUri(parsed);
             return true;
+        }
+
+        private static Uri NormalizeAzureDevOpsRepositoryUri(Uri repositoryUri)
+        {
+            if (!string.Equals(repositoryUri.Host, "dev.azure.com", StringComparison.OrdinalIgnoreCase))
+            {
+                return repositoryUri;
+            }
+
+            string[] segments = repositoryUri.AbsolutePath.Split('/');
+            if (segments.Length != 6
+                || !string.Equals(segments[3], "_git", StringComparison.OrdinalIgnoreCase)
+                || !string.Equals(segments[4], "_full", StringComparison.OrdinalIgnoreCase))
+            {
+                return repositoryUri;
+            }
+
+            var builder = new UriBuilder(repositoryUri)
+            {
+                Path = string.Format(
+                    CultureInfo.InvariantCulture,
+                    "/{0}/{1}/{2}/{3}",
+                    segments[1],
+                    segments[2],
+                    segments[3],
+                    segments[5]),
+            };
+
+            return builder.Uri;
         }
 
         private static bool TryReadOptionalRevisionId(string raw, string envName, List<string> present, List<string> problems, out string value)
